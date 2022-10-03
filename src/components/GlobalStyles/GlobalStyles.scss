@@ -5,6 +5,9 @@
   --primary: #fe2c55;
   --default-layout-header-height: 60px;
   --default-layout-width: 1150px;
+  --black: #000;
+  --white: #fff;
+  --text-color: #333;
 }
 
 * {
@@ -21,4 +24,15 @@ body {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
   text-rendering: optimizeSpeed;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+a[href] {
+  color: var(--text-color);
+  text-decoration: none;
 }

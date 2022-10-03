@@ -2,12 +2,108 @@
   width: 100%;
   height: var(--default-layout-header-height);
   border-bottom: 1px solid #ccc;
-
   display: flex;
   justify-content: center;
+  --search-border-radius: 92px;
+  --header-button-height: 36px;
 
   .inner {
     width: var(--default-layout-width);
     height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .search {
+      width: 361px;
+      height: 46px;
+      padding-left: 16px;
+      border-radius: var(--search-border-radius);
+      background: #1618230f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid transparent;
+      position: relative;
+
+      input {
+        flex: 1;
+        background-color: transparent;
+        height: 100%;
+        color: var(--black);
+
+        &::placeholder {
+          opacity: 0.7;
+        }
+      }
+
+      .spliter {
+        width: 1px;
+        height: 28px;
+        background: #1618231f;
+      }
+
+      .clear,
+      .spinner {
+        position: absolute;
+        right: 60px;
+      }
+
+      .search-button {
+        width: 52px;
+        height: 100%;
+        padding: 0 12px;
+        border-top-right-radius: var(--search-border-radius);
+        border-bottom-right-radius: var(--search-border-radius);
+        font-size: 1.8rem;
+        color: rgba(22, 24, 35, 0.34);
+
+        &:hover {
+          cursor: pointer;
+          background-color: #16182308;
+        }
+      }
+
+      &:focus-within {
+        border-color: #08090c0f;
+      }
+    }
+
+    .right-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .upload {
+        height: var(--header-button-height);
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border: 1px solid;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 1.6rem;
+
+        &:hover {
+          background-color: #16182308;
+          cursor: pointer;
+        }
+      }
+
+      .login {
+        height: var(--header-button-height);
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        background-color: #fe2c55;
+        font-weight: 600;
+        color: var(--white);
+        padding: 6px 8px;
+      }
+
+      .options {
+        font-size: 2rem;
+      }
+    }
   }
 }
