@@ -97,41 +97,11 @@
       align-items: center;
       gap: 20px;
 
-      .upload {
-        height: var(--header-button-height);
-        display: flex;
-        align-items: center;
-        padding: 0 16px;
-        border: 1px solid;
-        gap: 10px;
-        font-weight: 600;
-        font-size: 1.6rem;
-
-        &:hover {
-          background-color: #16182308;
-          cursor: pointer;
-        }
-      }
-
-      .login {
-        height: var(--header-button-height);
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-        background-color: #fe2c55;
-        font-weight: 600;
-        color: var(--white);
-        padding: 6px 8px;
-      }
-
-      .options {
+      .more-btn {
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
         font-size: 2rem;
-      }
-
-      .option-result {
-        width: 223px;
-        display: flex;
-        justify-content: center;
       }
     }
   }

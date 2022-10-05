@@ -6,6 +6,7 @@ import styles from "./Header.module.scss";
 import images from "../../../assets/images";
 import { Wrapper as PopperWrapper } from "../../Popper";
 import AccountItem from "../../AccountItem";
+import Button from "../../Button";
 import {
   faCircleXmark,
   faSpinner,
@@ -13,6 +14,7 @@ import {
   faPlus,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
+import Menu from "../../Popper/Menu";
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +61,8 @@ function Header() {
               spellCheck="false"
             />
             <span className={cx("spliter")}></span>
+
+            {/* search/clear/spinner icons */}
             <button className={cx("clear")}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
@@ -71,24 +75,18 @@ function Header() {
 
         {/* right container */}
         <div className={cx("right-container")}>
-          <div className={cx("upload")}>
-            <FontAwesomeIcon icon={faPlus} />
-            <p> Tải lên</p>
-          </div>
-          <div className={cx("login")}> Đăng nhập</div>
-          <Tippy
-            interactive
-            visible={options.length > 0}
-            render={(attrs) => (
-              <div className={cx("option-result")} tabIndex="-1" {...attrs}>
-                <PopperWrapper>options</PopperWrapper>
-              </div>
-            )}
-          >
-            <div className={cx("options")}>
+          <Button outline leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+            Tải lên
+          </Button>
+          <Button primary rounded>
+            Đăng nhập
+          </Button>
+
+          <Menu>
+            <button className={cx("more-btn")}>
               <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-          </Tippy>
+            </button>
+          </Menu>
         </div>
       </div>
     </header>
