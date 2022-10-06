@@ -96,12 +96,13 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      width: fit-content;
 
       .more-btn {
-        width: 20px;
-        height: 20px;
+        padding: 9px 18px;
         background-color: transparent;
         font-size: 2rem;
+        cursor: pointer;
       }
     }
   }

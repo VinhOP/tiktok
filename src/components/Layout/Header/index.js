@@ -13,20 +13,32 @@ import {
   faSearch,
   faPlus,
   faEllipsisVertical,
+  faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../../Popper/Menu";
+import {
+  faCircleQuestion,
+  faKeyboard,
+} from "@fortawesome/free-regular-svg-icons";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
-  const [options, setOptions] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([]);
-    }, 1000);
-  }, []);
+  const MENU_ITEMS = [
+    {
+      icon: <FontAwesomeIcon icon={faLanguage} />,
+      title: "Tiếng Việt",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+      title: "Phản hồi và trợ giúp",
+      to: "/feedback",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faKeyboard} />,
+      title: "Phím tắt trên bàn phím",
+    },
+  ];
 
   return (
     <header className={cx("wrapper")}>
@@ -39,7 +51,6 @@ function Header() {
         {/* search bar */}
         <Tippy
           interactive
-          visible={searchResult.length > 0}
           render={(attrs) => (
             <div className={cx("search-result")} tabIndex="-1" {...attrs}>
               <PopperWrapper>
@@ -75,14 +86,14 @@ function Header() {
 
         {/* right container */}
         <div className={cx("right-container")}>
-          <Button outline leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+          <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
             Tải lên
           </Button>
           <Button primary rounded>
             Đăng nhập
           </Button>
 
-          <Menu>
+          <Menu items={MENU_ITEMS}>
             <button className={cx("more-btn")}>
               <FontAwesomeIcon icon={faEllipsisVertical} />
             </button>

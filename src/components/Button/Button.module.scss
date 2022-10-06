@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 9px 16px;
   border-radius: 4px;
   font-size: 1.6rem;
@@ -9,6 +8,8 @@
   cursor: pointer;
   border: 1px solid transparent;
   user-select: none;
+  width: 100%;
+  white-space: nowrap;
 
   &.disabled {
     pointer-events: none;
@@ -55,6 +56,17 @@
 
 .rounded {
   border-radius: 52px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  width: 20px;
+  margin-right: 8px;
+  text-align: center;
 }
 
 .icon + .title,
