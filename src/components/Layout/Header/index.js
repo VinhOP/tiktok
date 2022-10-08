@@ -4,11 +4,6 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
-import styles from "./Header.module.scss";
-import images from "../../../assets/images";
-import { Wrapper as PopperWrapper } from "../../Popper";
-import AccountItem from "../../AccountItem";
-import Button from "../../Button";
 import {
   faCircleXmark,
   faSpinner,
@@ -19,6 +14,8 @@ import {
   faPaperPlane,
   faCoins,
   faArrowRightFromBracket,
+  faGear,
+  faVideoCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../../Popper/Menu";
 import {
@@ -27,6 +24,12 @@ import {
   faMessage,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
+import styles from "./Header.module.scss";
+import images from "../../../assets/images";
+import { Wrapper as PopperWrapper } from "../../Popper";
+import AccountItem from "../../AccountItem";
+import Button from "../../Button";
+import Image from "../../Image";
 
 const cx = classNames.bind(styles);
 
@@ -73,12 +76,12 @@ function Header() {
       to: "/coin",
     },
     {
-      icon: <FontAwesomeIcon icon={faCoins} />,
+      icon: <FontAwesomeIcon icon={faVideoCamera} />,
       title: "LIVE Studio",
       to: "/studio",
     },
     {
-      icon: <FontAwesomeIcon icon={faCoins} />,
+      icon: <FontAwesomeIcon icon={faGear} />,
       title: "Cài đặt",
       to: "/setting",
     },
@@ -160,10 +163,11 @@ function Header() {
           <Menu items={currentUser ? userMenu : MENU_ITEMS}>
             {currentUser ? (
               <button>
-                <img
+                <Image
                   className={cx("user-avatar")}
                   src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/9c1763d086163fc41c05a6d731057f7f~c5_300x300.webp?x-expires=1665046800&x-signature=GV75X4EsdIvC6ufbXOPWj0MfJKQ%3D"
-                  alt="profile pic"
+                  alt="avatar"
+                  //fallbackImg="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
                 />
               </button>
             ) : (
@@ -173,40 +177,6 @@ function Header() {
             )}
           </Menu>
         </div>
-
-        {/* {currentUser ? (
-          <div className={cx("right-container")}>
-            <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-              Tải lên
-            </Button>
-
-            <Tippy content="Tin nhắn">
-              <button>
-                <FontAwesomeIcon icon={faPaperPlane} />
-              </button>
-            </Tippy>
-            <Tippy content="Hộp thư">
-              <button>
-                <FontAwesomeIcon icon={faMessage} />
-              </button>
-            </Tippy>
-          </div>
-        ) : (
-          <div className={cx("right-container")}>
-            <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
-              Tải lên
-            </Button>
-            <Button primary rounded>
-              Đăng nhập
-            </Button>
-
-            <Menu items={MENU_ITEMS}>
-              <button className={cx("more-btn")}>
-                <FontAwesomeIcon icon={faEllipsisVertical} />
-              </button>
-            </Menu>
-          </div>
-        )} */}
       </div>
     </header>
   );
