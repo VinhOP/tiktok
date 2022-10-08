@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Tippy from "@tippyjs/react/headless";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
@@ -14,11 +16,16 @@ import {
   faPlus,
   faEllipsisVertical,
   faLanguage,
+  faPaperPlane,
+  faCoins,
+  faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../../Popper/Menu";
 import {
   faCircleQuestion,
   faKeyboard,
+  faMessage,
+  faUser,
 } from "@fortawesome/free-regular-svg-icons";
 
 const cx = classNames.bind(styles);
@@ -28,6 +35,19 @@ function Header() {
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,
       title: "Tiếng Việt",
+      children: {
+        title: "Ngôn ngữ",
+        data: [
+          {
+            code: "en",
+            title: "English",
+          },
+          {
+            code: "vi",
+            title: "Tiếng Việt",
+          },
+        ],
+      },
     },
     {
       icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -40,6 +60,36 @@ function Header() {
     },
   ];
 
+  const currentUser = true;
+  const userMenu = [
+    {
+      icon: <FontAwesomeIcon icon={faUser} />,
+      title: "Xem hồ sơ",
+      to: "/hoaa",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: "Nhận xu",
+      to: "/coin",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: "LIVE Studio",
+      to: "/studio",
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: "Cài đặt",
+      to: "/setting",
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+      title: "Đăng xuất",
+      seperate: true,
+    },
+  ];
+
   return (
     <header className={cx("wrapper")}>
       <div className={cx("inner")}>
@@ -47,9 +97,8 @@ function Header() {
         <div className={cx("logo")}>
           <img src={images.logo.default} alt="Tiktok" />
         </div>
-
         {/* search bar */}
-        <Tippy
+        <HeadlessTippy
           interactive
           render={(attrs) => (
             <div className={cx("search-result")} tabIndex="-1" {...attrs}>
@@ -82,23 +131,82 @@ function Header() {
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
-        </Tippy>
-
+        </HeadlessTippy>
         {/* right container */}
         <div className={cx("right-container")}>
           <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
             Tải lên
           </Button>
-          <Button primary rounded>
-            Đăng nhập
-          </Button>
-
-          <Menu items={MENU_ITEMS}>
-            <button className={cx("more-btn")}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </button>
+          {currentUser ? (
+            <>
+              <Tippy content="Tin nhắn">
+                <button>
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </button>
+              </Tippy>
+              <Tippy content="Hộp thư">
+                <button>
+                  <FontAwesomeIcon icon={faMessage} />
+                </button>
+              </Tippy>
+            </>
+          ) : (
+            <>
+              <Button primary rounded>
+                Đăng nhập
+              </Button>
+            </>
+          )}
+          <Menu items={currentUser ? userMenu : MENU_ITEMS}>
+            {currentUser ? (
+              <button>
+                <img
+                  className={cx("user-avatar")}
+                  src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/9c1763d086163fc41c05a6d731057f7f~c5_300x300.webp?x-expires=1665046800&x-signature=GV75X4EsdIvC6ufbXOPWj0MfJKQ%3D"
+                  alt="profile pic"
+                />
+              </button>
+            ) : (
+              <button className={cx("more-btn")}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+            )}
           </Menu>
         </div>
+
+        {/* {currentUser ? (
+          <div className={cx("right-container")}>
+            <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+              Tải lên
+            </Button>
+
+            <Tippy content="Tin nhắn">
+              <button>
+                <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
+            </Tippy>
+            <Tippy content="Hộp thư">
+              <button>
+                <FontAwesomeIcon icon={faMessage} />
+              </button>
+            </Tippy>
+          </div>
+        ) : (
+          <div className={cx("right-container")}>
+            <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+              Tải lên
+            </Button>
+            <Button primary rounded>
+              Đăng nhập
+            </Button>
+
+            <Menu items={MENU_ITEMS}>
+              <button className={cx("more-btn")}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+            </Menu>
+          </div>
+        )} */}
       </div>
     </header>
   );

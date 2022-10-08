@@ -1,6 +1,7 @@
 .menu-list {
   .menu-popper {
     padding: 8px 0;
+    min-width: 223px;
   }
 }
 
@@ -12,15 +13,22 @@
   }
 }
 
+.seperate {
+  border-top: 1px solid #1618231f;
+}
+
 .header {
   position: relative;
-  height: 50px;
+  height: 40px;
+  white-space: nowrap;
+  cursor: pointer;
 
   .back-btn {
-    height: 50px;
+    height: 100%;
     position: absolute;
     left: 0;
     margin-left: 28px;
+    cursor: pointer;
   }
 
   .header-title {
