@@ -14,88 +14,11 @@
     justify-content: space-between;
     align-items: center;
 
-    // search bar
-    .search,
-    .search-result {
-      width: 361px;
-    }
-
-    .search-title {
-      height: 30px;
-      padding: 5px 12px;
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 600;
-      color: #16182380;
-    }
-
-    .search {
-      height: 46px;
-      padding-left: 16px;
-      border-radius: var(--search-border-radius);
-      background: #1618230f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid transparent;
-      position: relative;
-
-      input {
-        flex: 1;
-        background-color: transparent;
-        height: 100%;
-        color: var(--black);
-
-        &::placeholder {
-          opacity: 0.7;
-        }
-
-        &:not(:placeholder-shown) ~ .search-button {
-          color: rgba(22, 24, 35, 0.75);
-        }
-      }
-
-      .spliter {
-        width: 1px;
-        height: 28px;
-        background: #1618231f;
-      }
-
-      .clear,
-      .spinner {
-        position: absolute;
-        right: 60px;
-      }
-
-      .search-button {
-        width: 52px;
-        height: 100%;
-        padding: 0 12px;
-        border-top-right-radius: var(--search-border-radius);
-        border-bottom-right-radius: var(--search-border-radius);
-        font-size: 1.8rem;
-        color: rgba(22, 24, 35, 0.34);
-
-        &:hover {
-          cursor: pointer;
-          background-color: #16182308;
-        }
-
-        &:active {
-          background-color: #1618230f;
-        }
-      }
-
-      &:focus-within {
-        border-color: #08090c0f;
-      }
-    }
-
     // right container
     .right-container {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 30px;
       width: fit-content;
 
       .more-btn {
@@ -103,6 +26,20 @@
         background-color: transparent;
         font-size: 2rem;
         cursor: pointer;
+      }
+    }
+
+    .inbox {
+      position: relative;
+      .inbox-number {
+        position: absolute;
+        top: -50%;
+        right: -100%;
+        background-color: red;
+        border-radius: 40%;
+        padding: 1px 6px;
+        font-size: 1.2rem;
+        color: var(--white);
       }
     }
 

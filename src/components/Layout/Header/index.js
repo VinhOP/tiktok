@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import HeadlessTippy from "@tippyjs/react/headless";
 import classNames from "classnames/bind";
 import {
-  faCircleXmark,
-  faSpinner,
-  faSearch,
   faPlus,
   faEllipsisVertical,
   faLanguage,
@@ -26,10 +21,9 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
-import { Wrapper as PopperWrapper } from "../../Popper";
-import AccountItem from "../../AccountItem";
 import Button from "../../Button";
 import Image from "../../Image";
+import Search from "../../Search";
 
 const cx = classNames.bind(styles);
 
@@ -100,41 +94,10 @@ function Header() {
         <div className={cx("logo")}>
           <img src={images.logo.default} alt="Tiktok" />
         </div>
-        {/* search bar */}
-        <HeadlessTippy
-          interactive
-          render={(attrs) => (
-            <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-              <PopperWrapper>
-                <div className={cx("search-title")}>
-                  <h4> Tài khoản </h4>
-                </div>
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-              </PopperWrapper>
-            </div>
-          )}
-        >
-          <div className={cx("search")}>
-            <input
-              type="text"
-              placeholder="Search accounts and videos"
-              spellCheck="false"
-            />
-            <span className={cx("spliter")}></span>
 
-            {/* search/clear/spinner icons */}
-            <button className={cx("clear")}>
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-            <FontAwesomeIcon className={cx("spinner")} icon={faSpinner} />
-            <button className={cx("search-button")}>
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-          </div>
-        </HeadlessTippy>
+        {/* search bar */}
+        <Search />
+
         {/* right container */}
         <div className={cx("right-container")}>
           <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
@@ -148,8 +111,11 @@ function Header() {
                 </button>
               </Tippy>
               <Tippy content="Hộp thư">
-                <button>
+                <button className={cx("inbox")}>
                   <FontAwesomeIcon icon={faMessage} />
+                  <div className={cx("inbox-number")}>
+                    <p>12</p>
+                  </div>
                 </button>
               </Tippy>
             </>

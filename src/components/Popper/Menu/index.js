@@ -34,6 +34,7 @@ function Menu({ children, items }) {
         setHistory((prev) => prev.slice(0, 1));
       }}
       interactive
+      //visible
       offset={[12, 10]}
       delay={[0, 500]}
       placement="bottom-end"

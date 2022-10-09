@@ -2,14 +2,18 @@
   .menu-popper {
     padding: 8px 0;
     min-width: 223px;
-  }
-}
 
-.menu-item {
-  font-weight: 600;
+    .menu-item {
+      font-weight: 600;
 
-  &:hover {
-    background-color: #16182308;
+      &:hover {
+        background-color: #16182308;
+      }
+    }
+
+    .seperate {
+      border-top: 1px solid #1618231f;
+    }
   }
 }
 
@@ -33,8 +37,4 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
-
-.seperate {
-  border-top: 1px solid #1618231f;
 }
