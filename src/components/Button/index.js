@@ -5,8 +5,8 @@ import styles from "./Button.module.scss";
 function Button({
   children,
   onClick,
-  to,
-  a,
+  to = false,
+  a = false,
   href,
   primary = false,
   outline = false,
