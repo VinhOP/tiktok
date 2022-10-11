@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeadlessTippy from "@tippyjs/react/headless";
 import { faSpinner, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+
+import * as searchServices from "../../apiServices/searchService";
 import styles from "./Search.module.scss";
-import classNames from "classnames/bind";
 import { Wrapper as PopperWrapper } from "../Popper";
 import AccountItem from "../AccountItem";
+import { useDebounce } from "../../hooks";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +18,9 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [startSpace, setStartSpace] = useState(false);
+
+  const debounced = useDebounce(searchValue, 500);
+  console.log(searchValue);
 
   const inputRef = useRef();
 
@@ -35,24 +40,22 @@ function Search() {
 
   //fetch API
   useEffect(() => {
-    if (!searchValue.trim()) {
+    if (!debounced.trim()) {
       setSearchResult([]);
       return;
     }
-    setIsLoading(true);
 
-    fetch(
-      //encodeURIComponent() để tránh nhầm kí tự trên URL nếu user nhập giống
-      `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-        searchValue
-      )}&type=less`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setSearchResult(res.data);
-        setIsLoading(false);
-      });
-  }, [searchValue]);
+    const fetchApi = async () => {
+      setIsLoading(true);
+
+      const result = await searchServices.search(debounced);
+      setSearchResult(result);
+
+      setIsLoading(false);
+    };
+
+    fetchApi();
+  }, [debounced]);
 
   return (
     <HeadlessTippy
@@ -80,12 +83,11 @@ function Search() {
           placeholder="Search accounts and videos"
           spellCheck="false"
           onChange={(e) => {
-            setSearchValue(e.target.value);
+            let value = e.target.value;
+            if (/^\s*$/.test(value)) value = "";
+            setSearchValue(value);
           }}
           onFocus={handleShowResult}
-          // onPaste={(e) => {
-          //   startSpace && e.preventDefault();
-          // }}
         />
         <span className={cx("spliter")}></span>
 
