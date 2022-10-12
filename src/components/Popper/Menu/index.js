@@ -7,7 +7,7 @@ import Header from "./Header";
 import { useState } from "react";
 
 const cx = classNames.bind(styles);
-function Menu({ children, items }) {
+function Menu({ children, items, hideOnClick = false }) {
   const [history, setHistory] = useState([{ data: items }]); // tạo 1 mảng chứa data từ items
 
   const current = history[history.length - 1]; // lấy Object cuối cùng từ mảng history ra
@@ -34,7 +34,7 @@ function Menu({ children, items }) {
         setHistory((prev) => prev.slice(0, 1));
       }}
       interactive
-      //visible
+      hideOnClick={hideOnClick}
       offset={[12, 10]}
       delay={[0, 500]}
       placement="bottom-end"
@@ -49,7 +49,7 @@ function Menu({ children, items }) {
                 }}
               />
             )}
-            {renderItems()}
+            <div className={cx("menu-body")}> {renderItems()}</div>
           </PopperWrapper>
         </div>
       )}

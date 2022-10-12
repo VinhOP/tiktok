@@ -4,30 +4,31 @@ import Upload from "../pages/Upload";
 import Search from "../pages/Search";
 import Profile from "../pages/Profile";
 import { DefaultLayout, HeaderOnly } from "../components/Layout";
+import RoutesConfig from "../config/routes";
 
 const publicRoutes = [
   {
-    path: "/",
+    path: RoutesConfig.home,
     component: Home,
     layout: DefaultLayout,
   },
   {
-    path: "/following",
+    path: RoutesConfig.following,
     component: Following,
     layout: DefaultLayout,
   },
   {
-    path: "/upload",
+    path: RoutesConfig.upload,
     component: Upload,
     layout: HeaderOnly,
   },
   {
-    path: "/search",
+    path: RoutesConfig.search,
     component: Search,
     layout: null,
   },
   {
-    path: "/@:nickname",
+    path: RoutesConfig.profile,
     component: Profile,
     layout: DefaultLayout,
   },

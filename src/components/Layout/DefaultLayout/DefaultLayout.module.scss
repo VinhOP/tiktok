@@ -9,6 +9,7 @@
     justify-content: space-between;
     width: var(--default-layout-width);
     min-height: 1000px;
+    margin-top: var(--default-layout-header-height);
 
     .content {
       width: 692px;

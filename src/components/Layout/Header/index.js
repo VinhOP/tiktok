@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import {
   faPlus,
@@ -19,6 +20,7 @@ import {
   faMessage,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
+
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
 import Button from "../../Button";
@@ -92,7 +94,9 @@ function Header() {
       <div className={cx("inner")}>
         {/* logo */}
         <div className={cx("logo")}>
-          <img src={images.logo.default} alt="Tiktok" />
+          <Link to="/">
+            <img src={images.logo.default} alt="Tiktok" />
+          </Link>
         </div>
 
         {/* search bar */}
