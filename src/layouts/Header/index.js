@@ -13,7 +13,7 @@ import {
   faGear,
   faVideoCamera,
 } from "@fortawesome/free-solid-svg-icons";
-import Menu from "../../Popper/Menu";
+import Menu from "../../components/Popper/Menu";
 import {
   faCircleQuestion,
   faKeyboard,
@@ -22,10 +22,10 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 import styles from "./Header.module.scss";
-import images from "../../../assets/images";
-import Button from "../../Button";
-import Image from "../../Image";
-import Search from "../../Search";
+import images from "../../assets/images";
+import Button from "../../components/Button";
+import Image from "../../components/Image";
+import Search from "../../components/Search";
 
 const cx = classNames.bind(styles);
 

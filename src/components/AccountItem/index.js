@@ -2,6 +2,7 @@ import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from "./AccountItem.module.scss";
+import { PropTypes } from "prop-types";
 import Image from "../Image";
 import Button from "../Button";
 
@@ -20,5 +21,9 @@ function AccountItem({ data }) {
     </Button>
   );
 }
+
+AccountItem.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AccountItem;
