@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeadlessTippy from "@tippyjs/react/headless";
@@ -8,18 +8,18 @@ import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import * as searchServices from "../../services/searchService";
 import styles from "./Search.module.scss";
 import { Wrapper as PopperWrapper } from "../Popper";
-import AccountItem from "../AccountItem";
 import { useDebounce } from "../../hooks";
+import RenderSearchResult from "./RenderSearchResult";
 
 const cx = classNames.bind(styles);
 
 function Search() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [showResult, setShowResult] = useState(true);
+  const [showResult, setShowResult] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const debounced = useDebounce(searchValue, 500);
+  const deboucedValue = useDebounce(searchValue, 500);
 
   const inputRef = useRef();
 
@@ -46,7 +46,7 @@ function Search() {
 
   //fetch API
   useEffect(() => {
-    if (!debounced.trim()) {
+    if (!deboucedValue.trim()) {
       setSearchResult([]);
       return;
     }
@@ -54,14 +54,25 @@ function Search() {
     const fetchApi = async () => {
       setIsLoading(true);
 
-      const result = await searchServices.search(debounced);
+      const result = await searchServices.search(deboucedValue);
       setSearchResult(result);
 
       setIsLoading(false);
     };
 
     fetchApi();
-  }, [debounced]);
+  }, [deboucedValue]);
+
+  const renderResult = (attrs) => (
+    <div className={cx("search-result")} tabIndex="-1" {...attrs}>
+      <PopperWrapper>
+        <div className={cx("search-title")}>
+          <h4> Tài khoản </h4>
+        </div>
+        <RenderSearchResult searchResult={searchResult} />
+      </PopperWrapper>
+    </div>
+  );
 
   return (
     <div>
@@ -69,18 +80,7 @@ function Search() {
         visible={showResult && searchResult.length > 0}
         interactive
         onClickOutside={handleHideResult}
-        render={(attrs) => (
-          <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-            <PopperWrapper>
-              <div className={cx("search-title")}>
-                <h4> Tài khoản </h4>
-              </div>
-              {searchResult.map((result) => {
-                return <AccountItem data={result} key={result.id} />;
-              })}
-            </PopperWrapper>
-          </div>
-        )}
+        render={renderResult}
       >
         <div className={cx("search")}>
           <input

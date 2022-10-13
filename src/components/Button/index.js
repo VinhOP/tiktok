@@ -7,8 +7,7 @@ function Button({
   children,
   onClick,
   to = false,
-  a = false,
-  href = false,
+  href,
   primary = false,
   outline = false,
   small = false,
@@ -32,7 +31,7 @@ function Button({
     Comp = Link;
   } else if (href) {
     props.href = href;
-    Comp = a;
+    Comp = "a";
   }
 
   if (disabled) {
@@ -62,7 +61,6 @@ function Button({
 Button.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
-  a: PropTypes.string,
   primary: PropTypes.bool,
   outline: PropTypes.bool,
   small: PropTypes.bool,

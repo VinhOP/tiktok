@@ -13,6 +13,14 @@ function Menu({ children, items, hideOnClick = false }) {
 
   const current = history[history.length - 1]; // lấy Object cuối cùng từ mảng history ra
 
+  const handleResetMenu = () => {
+    setHistory((prev) => prev.slice(0, 1));
+  };
+
+  const handleGoToPreviousMenu = () => {
+    setHistory((prev) => prev.slice(0, history.length - 1));
+  };
+
   const renderItems = () => {
     //render từ Object current ra
     return current.data.map((item, index) => {
@@ -29,31 +37,26 @@ function Menu({ children, items, hideOnClick = false }) {
     });
   };
 
+  const renderResult = (attrs) => (
+    <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
+      <PopperWrapper className={cx("menu-popper")}>
+        {history.length > 1 && ( // check nếu click vào Ngôn Ngữ sẽ hiện header
+          <Header title={current.title} onBack={handleGoToPreviousMenu} />
+        )}
+        <div className={cx("menu-body")}> {renderItems()}</div>
+      </PopperWrapper>
+    </div>
+  );
+
   return (
     <Tippy
-      onHide={() => {
-        setHistory((prev) => prev.slice(0, 1));
-      }}
+      onHide={handleResetMenu}
       interactive
       hideOnClick={hideOnClick}
       offset={[12, 10]}
       delay={[0, 500]}
       placement="bottom-end"
-      render={(attrs) => (
-        <div className={cx("menu-list")} tabIndex="-1" {...attrs}>
-          <PopperWrapper className={cx("menu-popper")}>
-            {history.length > 1 && ( // check nếu click vào Ngôn Ngữ sẽ hiện header
-              <Header
-                title={current.title}
-                onBack={() => {
-                  setHistory((prev) => prev.slice(0, history.length - 1));
-                }}
-              />
-            )}
-            <div className={cx("menu-body")}> {renderItems()}</div>
-          </PopperWrapper>
-        </div>
-      )}
+      render={renderResult}
     >
       {children}
     </Tippy>
