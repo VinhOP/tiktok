@@ -3,6 +3,8 @@ import Following from "../pages/Following";
 import Upload from "../pages/Upload";
 import Search from "../pages/Search";
 import Profile from "../pages/Profile";
+import Foryou from "../pages/Foryou";
+import Live from "../pages/Live";
 import { DefaultLayout, HeaderOnly } from "../layouts";
 import config from "../config";
 
@@ -13,8 +15,18 @@ const publicRoutes = [
     layout: DefaultLayout,
   },
   {
+    path: config.routes.foryou,
+    component: Foryou,
+    layout: DefaultLayout,
+  },
+  {
     path: config.routes.following,
     component: Following,
+    layout: DefaultLayout,
+  },
+  {
+    path: config.routes.live,
+    component: Live,
     layout: DefaultLayout,
   },
   {

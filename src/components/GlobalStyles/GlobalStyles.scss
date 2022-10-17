@@ -8,6 +8,7 @@
   --white: #fff;
   --text-color: #333;
   --font-family: "ProximaNova", sans-serif;
+  --sidebar-children-border-bottom: 1px solid #f0f0f1;
 }
 
 * {
@@ -52,3 +53,5 @@ a {
   color: var(--text-color);
   text-decoration: none;
 }
+
+//Sidebar

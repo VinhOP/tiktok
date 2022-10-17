@@ -1,7 +1,6 @@
 import AccountItem from "../AccountItem";
 import { memo } from "react";
 function RenderSearchResult({ searchResult }) {
-  console.log("re render");
   return (
     <>
       {searchResult.map((result) => {

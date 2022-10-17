@@ -1,0 +1,15 @@
+.wrapper {
+  padding: 16px 0;
+  border-bottom: var(--sidebar-children-border-bottom);
+}
+
+.title,
+.list-all {
+  margin: 0 8px;
+  padding: 8px 0;
+}
+
+.list-all {
+  color: var(--primary);
+  cursor: pointer;
+}

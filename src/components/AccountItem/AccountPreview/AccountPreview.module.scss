@@ -1,0 +1,58 @@
+.wrapper {
+  width: 320px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.follow-btn {
+  width: 106px;
+  height: 34px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #161823;
+  line-height: 22px;
+}
+
+.description {
+  color: #161823;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 20px;
+}
+
+.info {
+  display: flex;
+}
+
+.footer {
+  margin-top: 12px;
+}
+
+.user-stat-data {
+  font-weight: 700;
+  margin-right: 6px;
+  font-size: 1.7rem;
+}
+
+.user-stat-des {
+  color: #161823bf;
+  font-size: 1.7rem;
+}
+
+.user-stat-des:not(:last-of-type) {
+  margin-right: 6px;
+}
