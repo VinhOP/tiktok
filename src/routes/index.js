@@ -16,7 +16,7 @@ const publicRoutes = [
   },
   {
     path: config.routes.foryou,
-    component: Foryou,
+    component: Home,
     layout: DefaultLayout,
   },
   {

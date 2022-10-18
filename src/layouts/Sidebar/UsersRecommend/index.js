@@ -36,7 +36,7 @@ function UserRecommend() {
         );
       })}
 
-      <h4 className={cx("list-all")}> Xem tất cả </h4>
+      <h4 className={cx("see-more-btn")}> Xem tất cả </h4>
     </div>
   );
 }

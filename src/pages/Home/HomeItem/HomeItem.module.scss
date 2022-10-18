@@ -1,0 +1,89 @@
+.wrapper {
+  display: flex;
+  padding: 20px 0;
+}
+
+.content {
+  width: 100%;
+  margin-left: 12px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nickname {
+  line-height: 25px;
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.full-name {
+  line-height: 25px;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.description,
+.song {
+  line-height: 22px;
+}
+
+.follow-btn {
+  margin-top: 6px;
+}
+
+.body {
+  display: flex;
+  height: 400px;
+  padding-top: 6px;
+  .video-container {
+    width: 250px;
+  }
+
+  .video-player-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .action-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin-left: 18px;
+  }
+  .action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    strong {
+      font-size: 1.2rem;
+    }
+  }
+
+  .action-btn {
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 50%;
+    background-color: #1618230f;
+    font-size: 2rem;
+  }
+}

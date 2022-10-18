@@ -1,6 +1,9 @@
 .wrapper {
-  width: 348px;
-  height: 1194px;
+  width: var(--sidebar-width);
+  height: 600px;
   padding-left: 6px;
   overflow-y: auto;
+  position: fixed;
+  z-index: 10;
+  background-color: var(--white);
 }

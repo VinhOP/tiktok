@@ -25,6 +25,7 @@ function AccountItem({ className, data, isSugessted = false }) {
         interactive
         delay={[800, 0]}
         placement={"bottom"}
+        offset={[-20, 0]}
         render={isSugessted ? () => renderPreview() : () => Fragment}
       >
         <Button to={`@${data.nickname}`} className={cx("wrapper", className)}>

@@ -1,9 +1,17 @@
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
+import HomeItem from "./HomeItem";
 
+const cx = classNames.bind(styles);
 function Home() {
-  const cx = classNames.bind(styles);
-  return <div className={cx("wrapper")}> Home Page</div>;
+  return (
+    <div className={cx("wrapper")}>
+      <HomeItem />
+      <HomeItem />
+      <HomeItem />
+      <HomeItem />
+    </div>
+  );
 }
 
 export default Home;

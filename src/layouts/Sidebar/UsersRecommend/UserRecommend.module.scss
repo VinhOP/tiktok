@@ -4,12 +4,17 @@
 }
 
 .title,
-.list-all {
+.see-more-btn {
   margin: 0 8px;
   padding: 8px 0;
 }
 
-.list-all {
+.title {
+  color: #161823bf;
+  font-size: 1.4rem;
+}
+
+.see-more-btn {
   color: var(--primary);
   cursor: pointer;
 }
