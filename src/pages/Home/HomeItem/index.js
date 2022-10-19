@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   faCommentDots,
   faHeart,
@@ -10,19 +11,37 @@ import Image from "../../../components/Image";
 import styles from "./HomeItem.module.scss";
 
 const cx = classNames.bind(styles);
-function HomeItem() {
+
+function HomeItem({ data }) {
+  const [suggestedVideo, setSuggestedVideo] = useState(data);
+
+  const handleLike = () => {
+    setSuggestedVideo({
+      ...suggestedVideo,
+      is_liked: !suggestedVideo.is_liked,
+    });
+  };
+
   return (
     <div className={cx("wrapper")}>
-      <Image src="" alt="image" className={cx("avatar")} />
+      <Image
+        src={suggestedVideo.user.avatar}
+        alt={suggestedVideo.user.nickname}
+        className={cx("avatar")}
+      />
       <div className={cx("content")}>
         <header className={cx("header")}>
           <div className={cx("info")}>
-            <div className={cx("header")}>
-              <h4 className={cx("nickname")}> congmenlyne </h4>
-              <p className={cx("full-name")}> Le Cong</p>
+            <div className={cx("info-header")}>
+              <h4 className={cx("nickname")}>{suggestedVideo.user.nickname}</h4>
+              <p className={cx("full-name")}>
+                {`${suggestedVideo.user.first_name} ${suggestedVideo.user.last_name}`}
+              </p>
             </div>
-            <p className={cx("description")}> description </p>
-            <strong className={cx("song")}> nhac nen </strong>
+            <p className={cx("description")}> {suggestedVideo.description} </p>
+            <strong className={cx("song")}>
+              <span>&#9834; {suggestedVideo.music || "không có nhạc nền"}</span>
+            </strong>
           </div>
           <Button outline small center className={cx("follow-btn")}>
             Follow
@@ -34,29 +53,40 @@ function HomeItem() {
               <video
                 className={cx("video")}
                 controls
-                src="https://vod-progressive.akamaized.net/exp=1666101759~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F3625%2F29%2F743125466%2F3425362483.mp4~hmac=08bd58819235a60c8dcab5d7435c0e7c98a60017a67e54716120a4410dbb8092/vimeo-prod-skyfire-std-us/01/3625/29/743125466/3425362483.mp4?filename=file.mp4"
-              ></video>
+                autoPlay
+                muted
+                src={suggestedVideo.file_url}
+                type="video/mp4"
+              />
             </div>
             <div className={cx("UI-container")}></div>
           </div>
+
+          {/* actions */}
           <div className={cx("action-item-container")}>
-            <div className={cx("action-item")}>
-              <button className={cx("action-btn")}>
+            <div className={cx("action-item")} onClick={handleLike}>
+              <button
+                className={cx("action-btn", {
+                  active: suggestedVideo.is_liked,
+                })}
+              >
                 <FontAwesomeIcon icon={faHeart} />
               </button>
-              <strong> 1.5M </strong>
+              <strong> {suggestedVideo.likes_count} </strong>
             </div>
+
             <div className={cx("action-item")}>
               <button className={cx("action-btn")}>
                 <FontAwesomeIcon icon={faCommentDots} />
               </button>
-              <strong> 42 </strong>
+              <strong> {suggestedVideo.comments_count} </strong>
             </div>
+
             <div className={cx("action-item")}>
               <button className={cx("action-btn")}>
                 <FontAwesomeIcon icon={faShare} />
               </button>
-              <strong> 432 </strong>
+              <strong> {suggestedVideo.share_count} </strong>
             </div>
           </div>
         </div>

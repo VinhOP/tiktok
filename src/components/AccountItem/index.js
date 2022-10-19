@@ -19,6 +19,7 @@ function AccountItem({ className, data, isSugessted = false }) {
       </PopperWrapper>
     </div>
   );
+
   return (
     <div>
       <Tippy

@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 
 function UserRecommend() {
   const [suggestedUser, setSuggestedUser] = useState([]);
-  console.log(suggestedUser);
 
   useEffect(() => {
     const fetchApi = async () => {
