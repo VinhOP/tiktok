@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   padding: 20px 0;
+  border-bottom: var(--item-border-bottom);
 }
 
 .content {

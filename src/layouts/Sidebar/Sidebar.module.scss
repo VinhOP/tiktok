@@ -1,9 +1,15 @@
 .wrapper {
   width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
   height: 600px;
   padding-left: 6px;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overscroll-behavior: none; //prevent scrolling parent when it reach bottom/top
   position: fixed;
-  z-index: 10;
   background-color: var(--white);
+
+  &:hover {
+    overflow-y: scroll;
+  }
 }

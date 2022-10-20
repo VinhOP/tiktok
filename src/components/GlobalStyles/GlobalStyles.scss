@@ -9,7 +9,7 @@
   --text-color: #333;
   --font-family: "ProximaNova", sans-serif;
   --sidebar-width: 348px;
-  --sidebar-children-border-bottom: 1px solid #f0f0f1;
+  --item-border-bottom: 1px solid #f0f0f1;
 }
 
 * {
@@ -20,6 +20,7 @@
 
 html {
   font-size: 62.5%;
+  overflow-y: overlay;
 }
 
 // Fonts
