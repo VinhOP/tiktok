@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   faCommentDots,
   faHeart,
@@ -14,13 +14,25 @@ const cx = classNames.bind(styles);
 
 function HomeItem({ data }) {
   const [suggestedVideo, setSuggestedVideo] = useState(data);
+  const [liked, setLiked] = useState(false);
+
+  const firstUpdate = useRef(true);
 
   const handleLike = () => {
-    setSuggestedVideo({
-      ...suggestedVideo,
-      is_liked: !suggestedVideo.is_liked,
-    });
+    setLiked(!liked);
   };
+
+  useEffect(() => {
+    !firstUpdate.current &&
+      setSuggestedVideo({
+        ...suggestedVideo,
+        is_liked: liked,
+        likes_count: liked
+          ? suggestedVideo.likes_count + 1
+          : suggestedVideo.likes_count - 1,
+      });
+    firstUpdate.current = false;
+  }, [liked]);
 
   return (
     <div className={cx("wrapper")}>
