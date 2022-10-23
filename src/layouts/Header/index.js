@@ -26,10 +26,14 @@ import images from "../../assets/images";
 import Button from "../../components/Button";
 import Image from "../../components/Image";
 import Search from "../../components/Search";
+import { ModalContext } from "../../Contexts/ModalContext";
+import { useContext } from "react";
+import Modal from "../../components/Modal";
 
 const cx = classNames.bind(styles);
 
 function Header() {
+  const context = useContext(ModalContext);
   const MENU_ITEMS = [
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,
@@ -91,6 +95,7 @@ function Header() {
 
   return (
     <header className={cx("wrapper")}>
+      {context.showModal && <Modal />}
       <div className={cx("inner")}>
         {/* logo */}
         <div className={cx("logo")}>
@@ -125,7 +130,7 @@ function Header() {
             </>
           ) : (
             <>
-              <Button primary rounded>
+              <Button primary rounded onClick={context.toggleModal}>
                 Đăng nhập
               </Button>
             </>

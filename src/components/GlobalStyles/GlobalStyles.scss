@@ -20,9 +20,7 @@
 
 html {
   font-size: 62.5%;
-  overflow-y: overlay;
 }
-
 // Fonts
 
 @font-face {
@@ -41,6 +39,8 @@ html {
 body {
   font-family: var(--font-family);
   font-size: 1.6rem;
+  overflow-y: overlay;
+  overscroll-behavior: contain;
   text-rendering: optimizeSpeed;
 }
 

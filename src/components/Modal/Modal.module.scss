@@ -35,6 +35,17 @@
   position: relative;
   border-radius: 10px;
 
+  .back-btn {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    padding: 6px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .close-btn {
     position: absolute;
     top: 16px;
