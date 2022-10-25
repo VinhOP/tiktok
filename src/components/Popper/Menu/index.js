@@ -55,6 +55,7 @@ function Menu({ children, items, hideOnClick = false }) {
       hideOnClick={hideOnClick}
       offset={[12, 10]}
       delay={[0, 500]}
+      zIndex={10}
       placement="bottom-end"
       render={renderResult}
     >

@@ -26,6 +26,7 @@ function Modal() {
 
   useEffect(() => {
     if (context.showModal) document.body.style.overflowY = "hidden";
+
     return () => {
       document.body.style.overflowY = "overlay";
     };
@@ -96,6 +97,7 @@ function Modal() {
         <ModalItem
           data={item}
           key={index}
+          loginForm={history.length > 1}
           onClick={() => {
             if (isChildren) setHistory((prev) => [...prev, item.children]);
           }}
@@ -128,7 +130,7 @@ function Modal() {
             {renderItem()}
           </div>
           <footer className={cx("footer")}>
-            Bạn không có tài khoản? <a href="/"> Đăng ký</a>
+            Bạn không có tài khoản? <a href="/"> Đăng ký </a>
           </footer>
         </div>
       </div>
