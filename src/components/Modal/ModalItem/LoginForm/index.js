@@ -1,8 +1,9 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
-import { useEffect, useRef, useState } from "react";
-import Button from "../../../Button";
+import { useState } from "react";
+import { useAuth } from "../../../../Contexts/AuthContext";
+
 import styles from "./LoginForm.module.scss";
 
 const cx = classNames.bind(styles);
@@ -11,6 +12,13 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const auth = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    auth.signup(email, password);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -46,14 +54,16 @@ function LoginForm() {
         <a className={cx("forgot-password")} href="/">
           Quên mật khẩu?
         </a>
-        <Button
+        <button
           className={cx("submit-btn", {
             primary: email && password,
             disabled: !email || !password,
           })}
+          type="submit"
+          onClick={handleSubmit}
         >
           Đăng nhập
-        </Button>
+        </button>
       </form>
     </div>
   );

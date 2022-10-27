@@ -64,12 +64,17 @@
 }
 
 .submit-btn {
+  width: 100%;
   height: 46px;
   justify-content: center;
   padding: 6px 8px;
   margin-top: 21px;
   background-color: #1618230f;
   color: #16182357;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .primary {

@@ -115,8 +115,12 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 
-  a {
+  .toggle-modal-btn {
     margin-left: 4px;
     color: var(--primary);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

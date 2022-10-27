@@ -26,14 +26,17 @@ import images from "../../assets/images";
 import Button from "../../components/Button";
 import Image from "../../components/Image";
 import Search from "../../components/Search";
-import { ModalContext } from "../../Contexts/ModalContext";
-import { useContext } from "react";
+import { useModal } from "../../Contexts/ModalContext";
 import Modal from "../../components/Modal";
+import { useAuth } from "../../Contexts/AuthContext";
+import { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-  const context = useContext(ModalContext);
+  const modal = useModal();
+  const auth = useAuth();
+
   const MENU_ITEMS = [
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,
@@ -63,7 +66,6 @@ function Header() {
     },
   ];
 
-  const currentUser = false;
   const userMenu = [
     {
       icon: <FontAwesomeIcon icon={faUser} />,
@@ -95,7 +97,7 @@ function Header() {
 
   return (
     <header className={cx("wrapper")}>
-      {context.showModal && <Modal />}
+      {modal.showModal && <Modal />}
       <div className={cx("inner")}>
         {/* logo */}
         <div className={cx("logo")}>
@@ -112,7 +114,7 @@ function Header() {
           <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
             Tải lên
           </Button>
-          {currentUser ? (
+          {auth.currentUser ? (
             <>
               <Tippy content="Tin nhắn">
                 <button>
@@ -130,13 +132,13 @@ function Header() {
             </>
           ) : (
             <>
-              <Button primary rounded onClick={context.toggleModal}>
+              <Button primary rounded onClick={modal.toggleModal}>
                 Đăng nhập
               </Button>
             </>
           )}
-          <Menu items={currentUser ? userMenu : MENU_ITEMS}>
-            {currentUser ? (
+          <Menu items={auth.currentUser ? userMenu : MENU_ITEMS}>
+            {auth.currentUser ? (
               <button>
                 <Image
                   className={cx("user-avatar")}
