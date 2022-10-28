@@ -10,7 +10,7 @@
   margin-bottom: 4px;
 }
 
-.title {
+.label {
   margin-bottom: 4px;
   font-size: 1.6rem;
 }
@@ -23,11 +23,38 @@
   width: 120px;
   height: 44px;
   background-color: #1618230f;
-  color: #16182357;
-  font-size: 1.6rem;
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.title {
+  color: #16182357;
+  font-size: 1.6rem;
+}
+
+.dropdown-icon {
+  font-size: 2rem;
+}
+
+.dropdown-wrapper {
+  width: 120px;
+  max-height: 200px;
+  overflow-y: overlay;
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 0 12px;
+    height: 34px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #16182308;
+    }
   }
 }
 
