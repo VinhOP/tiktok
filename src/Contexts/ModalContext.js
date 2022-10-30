@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
 
 const ModalContext = createContext();
 
@@ -6,7 +6,6 @@ export const useModal = () => useContext(ModalContext);
 
 function ModalProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
-  console.log("rerender");
 
   const toggleModal = () => {
     setShowModal(!showModal);

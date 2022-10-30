@@ -16,7 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import styles from "./Modal.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useModal } from "../../Contexts/ModalContext";
 import ModalItem from "./ModalItem";
 
@@ -110,7 +110,7 @@ function Modal() {
 
   const [history, setHistory] = useState([MODAL_ITEMS[modal]]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setHistory([MODAL_ITEMS[modal]]);
   }, [modal]);
 

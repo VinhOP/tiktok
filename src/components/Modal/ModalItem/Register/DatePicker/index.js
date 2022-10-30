@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "../../../../Popper";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -23,17 +23,25 @@ for (let i = 2022; i > 1990; i--) {
 }
 
 function DatePicker() {
-  const [selectedMonth, setSelectedMonth] = useState(`Tháng`);
-  const [selectedDate, setSelectedDate] = useState(`Ngày`);
-  const [selectedYear, setSelectedYear] = useState(`Năm`);
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
 
   const renderDates = (attrs) => {
     return (
       <div {...attrs}>
         <PopperWrapper>
           <div className={cx("dropdown-wrapper")}>
-            {dates.map((date) => {
-              return <h4 className={cx("dropdown-item")}> {date} </h4>;
+            {dates.map((date, i) => {
+              return (
+                <h4
+                  key={i}
+                  className={cx("dropdown-item")}
+                  onClick={() => setSelectedDate(date)}
+                >
+                  {date}
+                </h4>
+              );
             })}
           </div>
         </PopperWrapper>
@@ -46,8 +54,16 @@ function DatePicker() {
       <div {...attrs}>
         <PopperWrapper>
           <div className={cx("dropdown-wrapper")}>
-            {months.map((month) => {
-              return <h4 className={cx("dropdown-item")}> {month}</h4>;
+            {months.map((month, i) => {
+              return (
+                <h4
+                  key={i}
+                  className={cx("dropdown-item")}
+                  onClick={() => setSelectedMonth(month)}
+                >
+                  {month}
+                </h4>
+              );
             })}
           </div>
         </PopperWrapper>
@@ -60,8 +76,16 @@ function DatePicker() {
       <div {...attrs}>
         <PopperWrapper>
           <div className={cx("dropdown-wrapper")}>
-            {years.map((year) => {
-              return <h4 className={cx("dropdown-item")}> {year}</h4>;
+            {years.map((year, i) => {
+              return (
+                <h4
+                  key={i}
+                  className={cx("dropdown-item")}
+                  onClick={() => setSelectedYear(year)}
+                >
+                  {year}
+                </h4>
+              );
             })}
           </div>
         </PopperWrapper>
@@ -71,7 +95,7 @@ function DatePicker() {
 
   const [buttonData, setButtonData] = useState([
     {
-      title: "Tháng",
+      title: `Tháng`,
       icon: <FontAwesomeIcon icon={faCaretDown} />,
       renderTippy: renderMonths,
     },
@@ -86,13 +110,35 @@ function DatePicker() {
       renderTippy: renderYears,
     },
   ]);
+
+  useEffect(() => {
+    if (!selectedMonth) return;
+    setButtonData([...buttonData], (buttonData[0].title = selectedMonth));
+  }, [selectedMonth]);
+
+  useEffect(() => {
+    setButtonData(
+      [...buttonData],
+      (buttonData[1].title = `Ngày ${selectedDate}`)
+    );
+  }, [selectedDate]);
+
+  useEffect(() => {
+    setButtonData(
+      [...buttonData],
+      (buttonData[2].title = `Năm ${selectedYear}`)
+    );
+  }, [selectedYear]);
+
   return (
     <div className={cx("wrapper")}>
       <label className={cx("label")}> Ngày sinh của bạn là ngày nào? </label>
       <div className={cx("birthday-form")}>
         {buttonData.map((item, i) => {
+          console.log(item);
           return (
             <Tippy
+              key={i}
               interactive
               offset={[0, 5]}
               placement={"bottom"}
@@ -112,7 +158,13 @@ function DatePicker() {
               render={item.renderTippy}
             >
               <button className={cx("dropdown-btn")}>
-                <span className={cx("title")}> {item.title} </span>
+                <span
+                  className={cx("title", {
+                    selected: item.title.length > 5,
+                  })}
+                >
+                  {item.title}
+                </span>
                 <i className={cx("dropdown-icon")}>{item.icon}</i>
               </button>
             </Tippy>

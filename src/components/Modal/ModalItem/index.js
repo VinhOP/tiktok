@@ -1,16 +1,16 @@
 import classNames from "classnames/bind";
 import styles from "../Modal.module.scss";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import Login from "./Login";
+import Register from "./Register";
 
 const cx = classNames.bind(styles);
 function ModalItem({ data, onClick, loginForm = false, registerForm = false }) {
   return (
     <>
       {loginForm ? (
-        <LoginForm />
+        <Login />
       ) : registerForm ? (
-        <RegisterForm />
+        <Register />
       ) : (
         <button className={cx("modal-item")} onClick={onClick}>
           <i>{data.icon}</i>
