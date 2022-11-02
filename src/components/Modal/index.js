@@ -19,11 +19,13 @@ import styles from "./Modal.module.scss";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useModal } from "../../Contexts/ModalContext";
 import ModalItem from "./ModalItem";
+import { useAuth } from "../../Contexts/AuthContext";
 
 const cx = classNames.bind(styles);
 function Modal() {
   const [modal, setModal] = useState("login");
   const context = useModal();
+  const auth = useAuth();
 
   useEffect(() => {
     if (context.showModal) document.body.style.overflowY = "hidden";

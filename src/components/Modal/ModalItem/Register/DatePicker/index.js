@@ -135,7 +135,6 @@ function DatePicker() {
       <label className={cx("label")}> Ngày sinh của bạn là ngày nào? </label>
       <div className={cx("birthday-form")}>
         {buttonData.map((item, i) => {
-          console.log(item);
           return (
             <Tippy
               key={i}

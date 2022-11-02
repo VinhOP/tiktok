@@ -92,6 +92,7 @@ function Header() {
       icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
       title: "Đăng xuất",
       seperate: true,
+      signOutBtn: true,
     },
   ];
 

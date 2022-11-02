@@ -4,12 +4,15 @@ import DatePicker from "./DatePicker";
 import EmailForm from "../Forms/EmailForm";
 import { useEffect } from "react";
 import { useEmail } from "../../../../Contexts/EmailContext";
+import { useAuth } from "../../../../Contexts/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
 function Register() {
   const email = useEmail();
-  console.log(email);
+  const auth = useAuth();
 
   useEffect(() => {
     return email.setEmail("");
@@ -22,15 +25,26 @@ function Register() {
   return (
     <div className={cx("wrapper")}>
       <DatePicker />
-      <div classNames={"register-forms"}>
+      <div className={"register-forms"}>
         <EmailForm />
         <button
           className={cx("continue-btn", {
             primary: email.email && email.password,
             disabled: !email.email || !email.password,
           })}
+          onClick={() => auth.signup(email.email, email.password)}
+          type={"submit"}
         >
-          Tiếp
+          <span>
+            {auth.isLoading ? (
+              <FontAwesomeIcon
+                className={cx("spinner-icon")}
+                icon={faSpinner}
+              />
+            ) : (
+              "Đăng ký"
+            )}
+          </span>
         </button>
       </div>
     </div>

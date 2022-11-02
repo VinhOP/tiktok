@@ -77,6 +77,19 @@
   }
 }
 
+.spinner-icon {
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .primary {
   background-color: var(--primary);
   color: var(--white);

@@ -1,9 +1,10 @@
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useEffect } from "react";
 import { useAuth } from "../../../../Contexts/AuthContext";
 import { useEmail } from "../../../../Contexts/EmailContext";
 import EmailForm from "../Forms/EmailForm";
-
 import styles from "../ModalItem.module.scss";
 
 const cx = classNames.bind(styles);
@@ -12,9 +13,9 @@ function Login() {
   const auth = useAuth();
   const email = useEmail();
 
-  const handleSubmit = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
-    auth.signup(email.email, email.password);
+    auth.signin(email.email, email.password);
   };
 
   useEffect(() => {
@@ -34,13 +35,22 @@ function Login() {
         </a>
         <button
           className={cx("continue-btn", {
-            primary: email.email && email.password,
-            disabled: !email.email || !email.password,
+            primary: email.email && email.password && !auth.isLoading,
+            disabled: !email.email || !email.password || auth.isLoading,
           })}
           type="submit"
-          onClick={handleSubmit}
+          onClick={handleSignIn}
         >
-          Đăng nhập
+          <span>
+            {auth.isLoading ? (
+              <FontAwesomeIcon
+                className={cx("spinner-icon")}
+                icon={faSpinner}
+              />
+            ) : (
+              "Đăng nhập"
+            )}
+          </span>
         </button>
       </div>
     </div>
