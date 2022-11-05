@@ -1,9 +1,7 @@
 .wrapper {
   width: var(--sidebar-width);
-  display: flex;
-  flex-direction: column;
   height: 600px;
-  padding-left: 6px;
+  //padding-left: 6px;
   overflow-y: hidden;
   overscroll-behavior: none; //prevent scrolling parent when it reach bottom/top
   position: fixed;
@@ -12,4 +10,28 @@
   &:hover {
     overflow-y: scroll;
   }
+}
+
+.title {
+  color: var(--secondary-color);
+  font-size: 1.6rem;
+}
+
+.login-section {
+  padding: 20px 8px 24px;
+  border-bottom: var(--item-border-bottom);
+}
+
+.login-btn {
+  color: var(--primary);
+  border-color: var(--primary);
+  margin-top: 20px;
+  padding: 6px 8px;
+  min-height: 48px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  max-width: 330px;
 }

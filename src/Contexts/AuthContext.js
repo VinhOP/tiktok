@@ -14,17 +14,18 @@ export const useAuth = () => useContext(AuthContext);
 function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  console.log(currentUser);
 
   const signup = async (email, password) => {
     try {
       setIsLoading(true);
       await createUserWithEmailAndPassword(auth, email, password);
       setIsLoading(false);
-      console.log("sign up successful");
     } catch (error) {
+      setError("email or password contain symbols");
       setIsLoading(false);
-      console.log(error);
-      console.log("something went wrong");
     }
   };
 
@@ -33,11 +34,9 @@ function AuthProvider({ children }) {
       setIsLoading(true);
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoading(false);
-      console.log("signed in");
     } catch (error) {
+      setError("wrong user name or password");
       setIsLoading(false);
-      console.log(error);
-      console.log("wrong username or password");
     }
   };
 
@@ -55,7 +54,10 @@ function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    setCurrentUser,
     isLoading,
+    error,
+    setError,
     signup,
     signin,
     signout,

@@ -9,6 +9,7 @@ import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "../Popper";
 import { Fragment } from "react";
 import AccountPreview from "./AccountPreview";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 function AccountItem({ className, data, isSugessted = false }) {
@@ -24,12 +25,12 @@ function AccountItem({ className, data, isSugessted = false }) {
     <div>
       <Tippy
         interactive
-        delay={[800, 0]}
+        delay={[600, 0]}
         placement={"bottom"}
         offset={[-20, 0]}
         render={isSugessted ? () => renderPreview() : () => Fragment}
       >
-        <Button to={`@${data.nickname}`} className={cx("wrapper", className)}>
+        <Button to={`/@${data.nickname}`} className={cx("wrapper", className)}>
           <Image className={cx("avatar")} src={data.avatar} alt="avatar" />
           <div className={cx("info")}>
             <p className={cx("name")}>

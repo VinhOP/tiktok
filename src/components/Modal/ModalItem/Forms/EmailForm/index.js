@@ -1,6 +1,9 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import { useLayoutEffect } from "react";
+import { useEffect } from "react";
+import { useAuth } from "../../../../../Contexts/AuthContext";
 import { useEmail } from "../../../../../Contexts/EmailContext";
 import styles from "./EmailForm.module.scss";
 
@@ -8,6 +11,11 @@ const cx = classNames.bind(styles);
 
 function EmailForm() {
   const email = useEmail();
+  const auth = useAuth();
+
+  useLayoutEffect(() => {
+    return auth.setError("");
+  }, []);
 
   return (
     <div>
@@ -41,6 +49,9 @@ function EmailForm() {
           </span>
         </div>
       </form>
+      <p className={cx("error-message", { active: !!auth.error })}>
+        {auth.error}
+      </p>
     </div>
   );
 }

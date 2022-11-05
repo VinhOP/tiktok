@@ -11,31 +11,46 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Following from "./Following";
 import Discover from "./Discover";
+import { useAuth } from "../../Contexts/AuthContext";
+import Button from "../../components/Button";
 
 function Sidebar() {
   const cx = classNames.bind(styles);
+  const auth = useAuth();
   return (
     <div className={cx("wrapper")}>
-      <Menu>
-        <MenuItem
-          icon={<FontAwesomeIcon icon={faHome} />}
-          title="Dành cho bạn"
-          to={"/foryou"}
-        />
-        <MenuItem
-          title="Đang Follow"
-          icon={<FontAwesomeIcon icon={faUserGroup} />}
-          to={"/following"}
-        />
-        <MenuItem
-          title="LIVE"
-          icon={<FontAwesomeIcon icon={faVideoCamera} />}
-          to={"/live"}
-        />
-      </Menu>
-      <UserRecommend />
-      <Following />
-      <Discover />
+      <div className={cx("content")}>
+        <Menu>
+          <MenuItem
+            icon={<FontAwesomeIcon icon={faHome} />}
+            title="Dành cho bạn"
+            to={"/foryou"}
+          />
+          <MenuItem
+            title="Đang Follow"
+            icon={<FontAwesomeIcon icon={faUserGroup} />}
+            to={"/following"}
+          />
+          <MenuItem
+            title="LIVE"
+            icon={<FontAwesomeIcon icon={faVideoCamera} />}
+            to={"/live"}
+          />
+        </Menu>
+        {!auth.currentUser && (
+          <div className={cx("login-section")}>
+            <h4 className={cx("title")}>
+              Đăng nhập để follow các tác giả, thích video và xem bình luận.
+            </h4>
+            <Button className={cx("login-btn")} center outline>
+              Đăng nhập
+            </Button>
+          </div>
+        )}
+        <UserRecommend />
+        {auth.currentUser && <Following />}
+        <Discover />
+      </div>
     </div>
   );
 }

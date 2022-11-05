@@ -1,6 +1,8 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import classNames from "classnames/bind";
+import { useLayoutEffect } from "react";
 import { useEffect } from "react";
 import { useAuth } from "../../../../Contexts/AuthContext";
 import { useEmail } from "../../../../Contexts/EmailContext";
@@ -15,14 +17,21 @@ function Login() {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    auth.signin(email.email, email.password);
+    //auth.signin(email.email, email.password);
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}auth/login`, {
+        email: email.email,
+        password: email.password,
+      })
+      .then((res) => auth.setCurrentUser(res.data))
+      .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     return email.setEmail("");
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     return email.setPassword("");
   }, []);
 

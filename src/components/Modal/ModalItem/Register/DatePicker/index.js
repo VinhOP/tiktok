@@ -27,6 +27,8 @@ function DatePicker() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
 
+  const dateRef = useRef();
+
   const renderDates = (attrs) => {
     return (
       <div {...attrs}>
@@ -36,6 +38,7 @@ function DatePicker() {
               return (
                 <h4
                   key={i}
+                  ref={dateRef}
                   className={cx("dropdown-item")}
                   onClick={() => setSelectedDate(date)}
                 >
@@ -136,37 +139,40 @@ function DatePicker() {
       <div className={cx("birthday-form")}>
         {buttonData.map((item, i) => {
           return (
-            <Tippy
-              key={i}
-              interactive
-              offset={[0, 5]}
-              placement={"bottom"}
-              trigger={"click"}
-              onShow={() =>
-                setButtonData(
-                  [...buttonData],
-                  (buttonData[i].icon = <FontAwesomeIcon icon={faCaretUp} />)
-                )
-              }
-              onHide={() =>
-                setButtonData(
-                  [...buttonData],
-                  (buttonData[i].icon = <FontAwesomeIcon icon={faCaretDown} />)
-                )
-              }
-              render={item.renderTippy}
-            >
-              <button className={cx("dropdown-btn")}>
-                <span
-                  className={cx("title", {
-                    selected: item.title.length > 5,
-                  })}
-                >
-                  {item.title}
-                </span>
-                <i className={cx("dropdown-icon")}>{item.icon}</i>
-              </button>
-            </Tippy>
+            <div key={i}>
+              <Tippy
+                interactive
+                offset={[0, 5]}
+                placement={"bottom"}
+                trigger={"click"}
+                onShow={() =>
+                  setButtonData(
+                    [...buttonData],
+                    (buttonData[i].icon = <FontAwesomeIcon icon={faCaretUp} />)
+                  )
+                }
+                onHide={() =>
+                  setButtonData(
+                    [...buttonData],
+                    (buttonData[i].icon = (
+                      <FontAwesomeIcon icon={faCaretDown} />
+                    ))
+                  )
+                }
+                render={item.renderTippy}
+              >
+                <button className={cx("dropdown-btn")}>
+                  <span
+                    className={cx("title", {
+                      selected: item.title.length > 5,
+                    })}
+                  >
+                    {item.title}
+                  </span>
+                  <i className={cx("dropdown-icon")}>{item.icon}</i>
+                </button>
+              </Tippy>
+            </div>
           );
         })}
       </div>
