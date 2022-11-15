@@ -9,12 +9,14 @@ function Home() {
   const [suggestedVideos, setSuggestedVideos] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchAPI = async () => {
       const result = await videoService.getVideoList({
         type: "for-you",
         page: 1,
       });
       setSuggestedVideos(result);
+      console.log(result);
     };
     fetchAPI();
   }, []);

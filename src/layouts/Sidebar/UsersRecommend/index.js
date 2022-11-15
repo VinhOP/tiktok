@@ -11,8 +11,6 @@ const cx = classNames.bind(styles);
 function UserRecommend() {
   const [suggestedUser, setSuggestedUser] = useState([]);
 
-  const auth = useAuth();
-
   useEffect(() => {
     const fetchApi = async () => {
       const result = await suggestedService.getSuggested({

@@ -141,6 +141,9 @@ function Modal() {
 
   return (
     <div className={cx("wrapper")}>
+      <span className={cx("login-notice", { active: auth.currentUser })}>
+        <h4 className={cx("description")}> Đăng nhập thành công </h4>
+      </span>
       <div className={cx("container")}>
         <div className={cx("content")}>
           <div className={cx("modal-items")}>

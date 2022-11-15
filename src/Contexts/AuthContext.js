@@ -1,56 +1,59 @@
-import {
-  createUserWithEmailAndPassword,
-  deleteUser,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import axios from "axios";
 import { auth } from "../firebase";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  Children,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem("token"));
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  console.log(currentUser);
-
-  const signup = async (email, password) => {
-    try {
-      setIsLoading(true);
-      await createUserWithEmailAndPassword(auth, email, password);
-      setIsLoading(false);
-    } catch (error) {
-      setError("email or password contain symbols");
-      setIsLoading(false);
+  useEffect(() => {
+    if (!currentUser) {
+      return;
     }
-  };
+    setTimeout(() => {
+      setLoggedIn(true);
+    }, 1000);
+  }, [currentUser]);
 
   const signin = async (email, password) => {
     try {
       setIsLoading(true);
-      await signInWithEmailAndPassword(auth, email, password);
+      const user = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}auth/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
+      localStorage.setItem("token", user.data.meta.token);
+      setCurrentUser(localStorage.getItem("token"));
       setIsLoading(false);
-    } catch (error) {
-      setError("wrong user name or password");
+      setTimeout(() => {
+        setLoggedIn(true);
+      }, 2000);
+    } catch (err) {
       setIsLoading(false);
+      console.log(err);
     }
   };
 
   const signout = () => {
-    signOut(auth);
+    localStorage.removeItem("token");
+    setCurrentUser(localStorage.getItem("token"));
+    setLoggedIn(false);
   };
-
-  useEffect(() => {
-    const unsubcribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-
-    return unsubcribe;
-  }, []);
 
   const value = {
     currentUser,
@@ -58,13 +61,12 @@ function AuthProvider({ children }) {
     isLoading,
     error,
     setError,
-    signup,
     signin,
     signout,
   };
 
   return (
-    <AuthContext.Provider value={value} key={currentUser}>
+    <AuthContext.Provider value={value} key={loggedIn}>
       {children}
     </AuthContext.Provider>
   );

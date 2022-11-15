@@ -10,6 +10,7 @@ function Following() {
   const [suggestedUser, setSuggestedUser] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchApi = async () => {
       const result = await suggestedService.getSuggested({
         page: 1,

@@ -7,6 +7,9 @@ export const getVideoList = async ({ type, page }) => {
         type,
         page,
       },
+      headers: {
+        Authorization: "Bearer" + localStorage.getItem("token"),
+      },
     });
     return res.data;
   } catch (error) {

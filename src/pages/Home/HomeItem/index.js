@@ -6,20 +6,47 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import axios from "axios";
 import Button from "../../../components/Button";
 import Image from "../../../components/Image";
 import styles from "./HomeItem.module.scss";
+import { useAuth } from "../../../Contexts/AuthContext";
+import { useModal } from "../../../Contexts/ModalContext";
 
 const cx = classNames.bind(styles);
 
 function HomeItem({ data }) {
   const [suggestedVideo, setSuggestedVideo] = useState(data);
   const [liked, setLiked] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
+
+  const auth = useAuth();
+  const modal = useModal();
 
   const firstUpdate = useRef(true);
+  const videoRef = useRef();
 
   const handleLike = () => {
     setLiked(!liked);
+  };
+
+  const handleFollow = async (data) => {
+    if (auth.currentUser) {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}users/${data.user_id}/${
+          isFollowed ? "unfollow" : "follow"
+        }`,
+        {},
+        {
+          headers: {
+            Authorization: "Bearer" + localStorage.getItem("token"),
+          },
+        }
+      );
+      setIsFollowed(!isFollowed);
+    } else {
+      modal.toggleModal();
+    }
   };
 
   useEffect(() => {
@@ -55,14 +82,23 @@ function HomeItem({ data }) {
               <span>&#9834; {suggestedVideo.music || "không có nhạc nền"}</span>
             </strong>
           </div>
-          <Button outline small center className={cx("follow-btn")}>
-            Follow
+          <Button
+            outline
+            small
+            center
+            className={cx("follow-btn", { followed: isFollowed })}
+            onClick={handleFollow}
+          >
+            <span className={cx("description")}>
+              {isFollowed ? "Đang Follow" : "Follow"}
+            </span>
           </Button>
         </header>
         <div className={cx("body")}>
           <div className={cx("video-container")}>
             <div className={cx("video-player-container")}>
               <video
+                ref={videoRef}
                 className={cx("video")}
                 controls
                 autoPlay

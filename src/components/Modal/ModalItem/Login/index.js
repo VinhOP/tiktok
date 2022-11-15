@@ -15,16 +15,9 @@ function Login() {
   const auth = useAuth();
   const email = useEmail();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    //auth.signin(email.email, email.password);
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}auth/login`, {
-        email: email.email,
-        password: email.password,
-      })
-      .then((res) => auth.setCurrentUser(res.data))
-      .catch((err) => console.log(err));
+    auth.signin(email.email, email.password);
   };
 
   useLayoutEffect(() => {

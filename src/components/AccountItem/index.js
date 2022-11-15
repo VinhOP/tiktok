@@ -9,7 +9,6 @@ import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "../Popper";
 import { Fragment } from "react";
 import AccountPreview from "./AccountPreview";
-import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 function AccountItem({ className, data, isSugessted = false }) {

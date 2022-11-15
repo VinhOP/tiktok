@@ -13,10 +13,17 @@ import Following from "./Following";
 import Discover from "./Discover";
 import { useAuth } from "../../Contexts/AuthContext";
 import Button from "../../components/Button";
+import { useModal } from "../../Contexts/ModalContext";
 
 function Sidebar() {
   const cx = classNames.bind(styles);
   const auth = useAuth();
+  const modal = useModal();
+
+  const handleLogin = () => {
+    modal.toggleModal();
+  };
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("content")}>
@@ -42,7 +49,12 @@ function Sidebar() {
             <h4 className={cx("title")}>
               Đăng nhập để follow các tác giả, thích video và xem bình luận.
             </h4>
-            <Button className={cx("login-btn")} center outline>
+            <Button
+              className={cx("login-btn")}
+              center
+              outline
+              onClick={handleLogin}
+            >
               Đăng nhập
             </Button>
           </div>

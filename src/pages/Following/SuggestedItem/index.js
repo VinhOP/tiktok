@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Button from "../../../components/Button";
 import Image from "../../../components/Image";
 import styles from "./SuggestedItem.module.scss";
