@@ -37,6 +37,8 @@ function Header() {
   const modal = useModal();
   const auth = useAuth();
 
+  useEffect(() => {}, []);
+
   const MENU_ITEMS = [
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,
@@ -115,7 +117,7 @@ function Header() {
           <Button outline center leftIcon={<FontAwesomeIcon icon={faPlus} />}>
             Tải lên
           </Button>
-          {auth.currentUser ? (
+          {auth.loggedIn ? (
             <>
               <Tippy content="Tin nhắn">
                 <button>
@@ -138,12 +140,12 @@ function Header() {
               </Button>
             </>
           )}
-          <Menu items={auth.currentUser ? userMenu : MENU_ITEMS}>
-            {auth.currentUser ? (
+          <Menu items={auth.loggedIn ? userMenu : MENU_ITEMS}>
+            {auth.loggedIn ? (
               <button>
                 <Image
                   className={cx("user-avatar")}
-                  src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/9c1763d086163fc41c05a6d731057f7f~c5_300x300.webp?x-expires=1665046800&x-signature=GV75X4EsdIvC6ufbXOPWj0MfJKQ%3D"
+                  src={auth.currentUser && auth.currentUser.avatar}
                   alt="avatar"
                   //fallbackImg="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
                 />

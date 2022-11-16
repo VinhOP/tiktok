@@ -30,7 +30,7 @@ function HomeItem({ data }) {
     setLiked(!liked);
   };
 
-  const handleFollow = async (data) => {
+  const handleFollow = async () => {
     if (auth.currentUser) {
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}users/${data.user_id}/${

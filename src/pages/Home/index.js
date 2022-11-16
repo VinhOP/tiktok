@@ -16,7 +16,6 @@ function Home() {
         page: 1,
       });
       setSuggestedVideos(result);
-      console.log(result);
     };
     fetchAPI();
   }, []);

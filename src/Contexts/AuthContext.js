@@ -1,10 +1,10 @@
 import axios from "axios";
 import { auth } from "../firebase";
 import {
-  Children,
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 
@@ -13,19 +13,30 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem("token"));
+  const [currentUser, setCurrentUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
+
+  console.log(currentUser);
 
   useEffect(() => {
-    if (!currentUser) {
-      return;
+    async function fetchAPI() {
+      const user = await axios.get(`${process.env.REACT_APP_BASE_URL}auth/me`, {
+        headers: {
+          Authorization: "Bearer" + localStorage.getItem("token"),
+        },
+      });
+      setCurrentUser(user.data.data);
     }
-    setTimeout(() => {
-      setLoggedIn(true);
-    }, 1000);
-  }, [currentUser]);
+    fetchAPI();
+  }, []);
+
+  useEffect(() => {
+    localStorage.getItem("token") != null
+      ? setLoggedIn(true)
+      : setLoggedIn(false);
+  }, []);
 
   const signin = async (email, password) => {
     try {
@@ -38,20 +49,20 @@ function AuthProvider({ children }) {
         }
       );
       localStorage.setItem("token", user.data.meta.token);
-      setCurrentUser(localStorage.getItem("token"));
-      setIsLoading(false);
+      setCurrentUser(user.data.data);
+      setIsLoading(false);  
       setTimeout(() => {
         setLoggedIn(true);
       }, 2000);
     } catch (err) {
       setIsLoading(false);
-      console.log(err);
+      setError("sai email hoặc mật khẩu");
     }
   };
 
   const signout = () => {
     localStorage.removeItem("token");
-    setCurrentUser(localStorage.getItem("token"));
+    setCurrentUser();
     setLoggedIn(false);
   };
 
@@ -63,6 +74,7 @@ function AuthProvider({ children }) {
     setError,
     signin,
     signout,
+    loggedIn,
   };
 
   return (

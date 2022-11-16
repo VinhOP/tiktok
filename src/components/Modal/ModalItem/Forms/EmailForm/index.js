@@ -17,6 +17,10 @@ function EmailForm() {
     return auth.setError("");
   }, []);
 
+  useEffect(() => {
+    auth.error && auth.setError("");
+  }, [email.email, email.password]);
+
   return (
     <div>
       <div className={cx("header")}>
@@ -28,6 +32,7 @@ function EmailForm() {
       <form className={cx("email-form")}>
         <div className={cx("input-field")}>
           <input
+            value={email.email}
             className={cx("input")}
             type="email"
             placeholder="Email hoặc TikTok ID"
@@ -36,6 +41,7 @@ function EmailForm() {
         </div>
         <div className={cx("input-field")}>
           <input
+            value={email.password}
             className={cx("input")}
             type={email.showPassword ? "text" : "password"}
             placeholder="Mật Khẩu"
