@@ -18,7 +18,9 @@ const cx = classNames.bind(styles);
 function HomeItem({ data }) {
   const [suggestedVideo, setSuggestedVideo] = useState(data);
   const [liked, setLiked] = useState(false);
-  const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
+  const [isFollowed, setIsFollowed] = useState(data.user?.is_followed);
+
+  console.log(data);
 
   const auth = useAuth();
   const modal = useModal();
@@ -33,9 +35,9 @@ function HomeItem({ data }) {
   const handleFollow = async () => {
     if (auth.currentUser) {
       await axios.post(
-        `${process.env.REACT_APP_BASE_URL}users/${data.user_id}/${
-          isFollowed ? "unfollow" : "follow"
-        }`,
+        `${process.env.REACT_APP_BASE_URL}users/${
+          data.user_id || data.user.id
+        }/${isFollowed ? "unfollow" : "follow"}`,
         {},
         {
           headers: {
@@ -64,8 +66,8 @@ function HomeItem({ data }) {
   return (
     <div className={cx("wrapper")}>
       <Image
-        src={suggestedVideo.user.avatar}
-        alt={suggestedVideo.user.nickname}
+        src={suggestedVideo.user?.avatar}
+        alt={suggestedVideo.user?.nickname}
         className={cx("avatar")}
       />
       <div className={cx("content")}>
