@@ -15,12 +15,10 @@ import { useModal } from "../../../Contexts/ModalContext";
 
 const cx = classNames.bind(styles);
 
-function HomeItem({ data }) {
+function HomeItem({ data, followingPage = false }) {
   const [suggestedVideo, setSuggestedVideo] = useState(data);
   const [liked, setLiked] = useState(false);
   const [isFollowed, setIsFollowed] = useState(data.user?.is_followed);
-
-  console.log(data);
 
   const auth = useAuth();
   const modal = useModal();
@@ -84,17 +82,19 @@ function HomeItem({ data }) {
               <span>&#9834; {suggestedVideo.music || "không có nhạc nền"}</span>
             </strong>
           </div>
-          <Button
-            outline
-            small
-            center
-            className={cx("follow-btn", { followed: isFollowed })}
-            onClick={handleFollow}
-          >
-            <span className={cx("description")}>
-              {isFollowed ? "Đang Follow" : "Follow"}
-            </span>
-          </Button>
+          {!followingPage && (
+            <Button
+              outline
+              small
+              center
+              className={cx("follow-btn", { followed: isFollowed })}
+              onClick={handleFollow}
+            >
+              <span className={cx("description")}>
+                {isFollowed ? "Đang Follow" : "Follow"}
+              </span>
+            </Button>
+          )}
         </header>
         <div className={cx("body")}>
           <div className={cx("video-container")}>

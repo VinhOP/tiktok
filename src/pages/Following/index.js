@@ -5,6 +5,7 @@ import * as suggestedService from "../../services/userService";
 import * as followingListService from "../../services/followingListService";
 import SuggestedItem from "./SuggestedItem";
 import HomeItem from "../Home/HomeItem";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -19,8 +20,21 @@ function Following() {
       const result = await followingListService.getFollowingList({
         page: 1,
       });
-      setFollowingList(result);
-      setIsFetching(false);
+
+      const getUsers = () => {
+        result.forEach(async (item) => {
+          const user = await axios.get(
+            `${process.env.REACT_APP_BASE_URL}users/@${item.nickname}`,
+            {
+              headers: {
+                Authorization: "Bearer" + localStorage.getItem("token"),
+              },
+            }
+          );
+          setFollowingList((prev) => [...prev, user.data.data]);
+        });
+      };
+      getUsers(() => setIsFetching(false));
     };
 
     getFollowingList();
@@ -47,8 +61,10 @@ function Following() {
         ? suggestedUser?.map((item) => {
             return <SuggestedItem data={item} key={item.id} />;
           })
-        : followingList?.map((item) => {
-            return <HomeItem data={{ user: item }} key={item.id} />;
+        : followingList?.map((user) => {
+            return user.videos.map((video) => {
+              return <HomeItem followingPage data={video} key={video.id} />;
+            });
           })}
     </div>
   );

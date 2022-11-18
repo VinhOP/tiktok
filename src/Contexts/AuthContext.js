@@ -18,8 +18,6 @@ function AuthProvider({ children }) {
   const [error, setError] = useState("");
   const [loggedIn, setLoggedIn] = useState();
 
-  console.log(currentUser);
-
   useEffect(() => {
     async function fetchAPI() {
       const user = await axios.get(`${process.env.REACT_APP_BASE_URL}auth/me`, {
@@ -50,7 +48,7 @@ function AuthProvider({ children }) {
       );
       localStorage.setItem("token", user.data.meta.token);
       setCurrentUser(user.data.data);
-      setIsLoading(false);  
+      setIsLoading(false);
       setTimeout(() => {
         setLoggedIn(true);
       }, 2000);
