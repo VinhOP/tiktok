@@ -1,15 +1,19 @@
 .wrapper {
-  width: var(--sidebar-width);
+  width: var(--default-sidebar-width);
   height: 600px;
-  //padding-left: 6px;
+  padding-left: 6px;
   overflow-y: hidden;
-  overscroll-behavior: none; //prevent scrolling parent when it reach bottom/top
+  overscroll-behavior: none; //prevent scrolling parent
   position: fixed;
   background-color: var(--white);
 
   &:hover {
     overflow-y: scroll;
   }
+}
+
+.profileLayout {
+  width: var(--profile-sidebar-width);
 }
 
 .title {

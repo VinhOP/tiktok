@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-height: 1000px;
+    margin-top: var(--default-layout-header-height);
+
+    &::before {
+      content: "";
+      width: var(--sidebar-width);
+    }
+
+    .content {
+      width: 692px;
+      padding: 32px 24px;
+      margin-left: var(--profile-sidebar-width);
+    }
+  }
+}

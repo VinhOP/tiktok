@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import images from "../../assets/images";
+import { useEffect } from "react";
 
 function Image({
   src,
@@ -14,6 +15,10 @@ function Image({
   const handleError = () => {
     setFallback(fallbackImg);
   };
+
+  useEffect(() => {
+    setFallback("");
+  }, [src]);
 
   return (
     <img

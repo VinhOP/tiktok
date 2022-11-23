@@ -5,7 +5,7 @@ import Search from "../pages/Search";
 import Profile from "../pages/Profile";
 import Foryou from "../pages/Foryou";
 import Live from "../pages/Live";
-import { DefaultLayout, HeaderOnly } from "../layouts";
+import { DefaultLayout, HeaderOnly, ProfileLayout } from "../layouts";
 import config from "../config";
 
 const publicRoutes = [
@@ -42,7 +42,7 @@ const publicRoutes = [
   {
     path: config.routes.profile,
     component: Profile,
-    layout: DefaultLayout,
+    layout: ProfileLayout,
   },
 ];
 

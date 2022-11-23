@@ -15,7 +15,7 @@ import { useAuth } from "../../Contexts/AuthContext";
 import Button from "../../components/Button";
 import { useModal } from "../../Contexts/ModalContext";
 
-function Sidebar() {
+function Sidebar({ profileLayout = false }) {
   const cx = classNames.bind(styles);
   const auth = useAuth();
   const modal = useModal();
@@ -24,8 +24,12 @@ function Sidebar() {
     modal.toggleModal();
   };
 
+  const classes = cx("wrapper", {
+    profileLayout,
+  });
+
   return (
-    <div className={cx("wrapper")}>
+    <div className={classes}>
       <div className={cx("content")}>
         <Menu>
           <MenuItem

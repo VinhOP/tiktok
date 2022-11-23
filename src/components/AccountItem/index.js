@@ -23,6 +23,7 @@ function AccountItem({ className, data, isSugessted = false }) {
   return (
     <div>
       <Tippy
+        appendTo={document.body}
         interactive
         delay={[600, 0]}
         placement={"bottom"}

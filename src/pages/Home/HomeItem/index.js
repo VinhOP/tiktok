@@ -17,18 +17,15 @@ const cx = classNames.bind(styles);
 
 function HomeItem({ data, followingPage = false }) {
   const [suggestedVideo, setSuggestedVideo] = useState(data);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(data.is_liked);
   const [isFollowed, setIsFollowed] = useState(data.user?.is_followed);
 
   const auth = useAuth();
   const modal = useModal();
 
-  const firstUpdate = useRef(true);
   const videoRef = useRef();
 
-  const handleLike = () => {
-    setLiked(!liked);
-  };
+  const handleLike = () => {};
 
   const handleFollow = async () => {
     if (auth.currentUser) {
@@ -48,18 +45,6 @@ function HomeItem({ data, followingPage = false }) {
       modal.toggleModal();
     }
   };
-
-  useEffect(() => {
-    !firstUpdate.current &&
-      setSuggestedVideo({
-        ...suggestedVideo,
-        is_liked: liked,
-        likes_count: liked
-          ? suggestedVideo.likes_count + 1
-          : suggestedVideo.likes_count - 1,
-      });
-    firstUpdate.current = false;
-  }, [liked]);
 
   return (
     <div className={cx("wrapper")}>
