@@ -25,7 +25,11 @@ function EmailForm() {
     <div>
       <div className={cx("header")}>
         <label className={cx("title")}>Email hoặc TikTok ID</label>
-        <a className={cx("description")} href="/">
+        <a
+          className={cx("description")}
+          href="/"
+          onClick={(e) => e.preventDefault()}
+        >
           Đăng nhập bằng số điện thoại
         </a>
       </div>

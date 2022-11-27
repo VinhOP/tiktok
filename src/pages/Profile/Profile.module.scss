@@ -67,3 +67,41 @@
   font-size: 24px;
   margin-right: 12px;
 }
+
+.video-feed-tab {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 460px;
+  height: 44px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.posts {
+  width: 50%;
+  font-size: 18px;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.posts-liked {
+  width: 50%;
+  cursor: pointer;
+}
+
+.bottom-line {
+  width: 50%;
+  height: 2px;
+  background-color: black;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.video-list {
+  display: grid;
+  grid-gap: 24px 16px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(184px, 1fr));
+}

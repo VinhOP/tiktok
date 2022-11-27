@@ -6,6 +6,7 @@ import * as followingListService from "../../services/followingListService";
 import SuggestedItem from "./SuggestedItem";
 import HomeItem from "../Home/HomeItem";
 import axios from "axios";
+import { useAuth } from "../../Contexts/AuthContext";
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +15,7 @@ function Following() {
   const [suggestedUser, setSuggestedUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
 
+  const auth = useAuth();
   useEffect(() => {
     window.scrollTo(0, 0);
     const getFollowingList = async () => {
@@ -21,6 +23,10 @@ function Following() {
         page: 1,
       });
 
+      if (result?.length < 1 || !auth.currentUser) {
+        setIsFetching(false);
+        return;
+      }
       const getUsers = () => {
         result.forEach(async (item) => {
           const user = await axios.get(

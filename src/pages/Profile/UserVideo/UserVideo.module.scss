@@ -1,0 +1,34 @@
+.wrapper {
+  width: 202px;
+  height: 269px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 4px;
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+}
+
+.user-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 67px 13px 17px;
+  color: white;
+
+  .play-icon {
+    margin-right: 4px;
+  }
+}
+
+.description {
+  color: black;
+}

@@ -1,32 +1,62 @@
 import classNames from "classnames/bind";
-import styles from "./Profile.module.scss";
-import Image from "../../components/Image";
-import Button from "../../components/Button";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faShare } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
-import { useEffect, useLayoutEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import styles from "./Profile.module.scss";
+import Image from "../../components/Image";
+import Button from "../../components/Button";
+import UserVideo from "./UserVideo";
 
 const cx = classNames.bind(styles);
 
 function Profile() {
   const location = useLocation();
   const [userProfile, setUserProfile] = useState();
+  const [bodyContent, setBodyContent] = useState("posts");
+  const [prevSelectedVideo, setPrevSelectedVideo] = useState();
+  const [selectedVideo, setSelectedVideo] = useState();
 
-  //console.log(userProfile);
+  const bottomLineRef = useRef();
+
+  const handleClickPosts = () => {
+    bottomLineRef.current.style.transform = "translateX(0)";
+    setBodyContent("posts");
+  };
+
+  const handleClickPostsLiked = () => {
+    bottomLineRef.current.style.transform = "translateX(230px)";
+    setBodyContent("liked video");
+  };
+
+  const handleResetVideo = () => {
+    if (!prevSelectedVideo) {
+      return;
+    }
+    prevSelectedVideo.pause();
+    prevSelectedVideo.currentTime = 0;
+  };
 
   useEffect(() => {
     const fetchApi = async () => {
       const user = await axios.get(
         `${process.env.REACT_APP_BASE_URL}users${location.pathname}`
       );
-      //console.log(user.data.data);
       setUserProfile(user.data.data);
+      setBodyContent("posts");
     };
 
+    bottomLineRef.current.style.transform = "translateX(0)";
     fetchApi();
   }, [location.pathname]);
+
+  useEffect(() => {
+    setPrevSelectedVideo(selectedVideo);
+    selectedVideo?.play();
+
+    handleResetVideo();
+  }, [selectedVideo]);
 
   return (
     <div className={cx("wrapper")}>
@@ -39,7 +69,6 @@ function Profile() {
                 src={userProfile.avatar}
                 alt={"avatar"}
               />
-              {console.log(userProfile.avatar)}
               <div className={cx("title-container")}>
                 <h2 className={cx("nickname")}>{userProfile.nickname}</h2>
                 <h4
@@ -84,7 +113,33 @@ function Profile() {
           </div>
         </div>
       )}
-      <div className={cx("body")}></div>
+      <div className={cx("body")}>
+        <div className={cx("video-feed-tab")}>
+          <div className={cx("posts")} onClick={handleClickPosts}>
+            <span> Video </span>
+          </div>
+          <div className={cx("posts-liked")} onClick={handleClickPostsLiked}>
+            <h4 className={cx("span-liked")}> Đã thích </h4>
+          </div>
+          <div ref={bottomLineRef} className={cx("bottom-line")} />
+        </div>
+        <div className={cx("video-list")}>
+          {bodyContent === "posts" ? (
+            userProfile?.videos?.map((item) => {
+              return (
+                <UserVideo
+                  data={item}
+                  key={item.id}
+                  selectedVideo={selectedVideo}
+                  setSelectedVideo={setSelectedVideo}
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,19 @@
 .wrapper {
   width: var(--default-sidebar-width);
   height: 600px;
-  padding-left: 6px;
+  padding: 0 8px;
   overflow-y: hidden;
   overscroll-behavior: none; //prevent scrolling parent
   position: fixed;
   background-color: var(--white);
 
   &:hover {
-    overflow-y: scroll;
+    overflow-y: overlay;
   }
 }
 
 .profileLayout {
+  padding-left: 0;
   width: var(--profile-sidebar-width);
 }
 
@@ -37,5 +38,5 @@
 .content {
   display: flex;
   flex-direction: column;
-  max-width: 330px;
+  max-width: 100%;
 }

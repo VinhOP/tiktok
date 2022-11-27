@@ -37,8 +37,16 @@ function Login() {
         </a>
         <button
           className={cx("continue-btn", {
-            primary: email.email && email.password && !auth.isLoading,
-            disabled: !email.email || !email.password || auth.isLoading,
+            primary:
+              email.email &&
+              email.password &&
+              !auth.isLoading &&
+              !auth.currentUser,
+            disabled:
+              !email.email ||
+              !email.password ||
+              auth.isLoading ||
+              auth.currentUser,
           })}
           type="submit"
           onClick={handleSignIn}
