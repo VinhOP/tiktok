@@ -39,6 +39,7 @@ function Profile() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchApi = async () => {
       const user = await axios.get(
         `${process.env.REACT_APP_BASE_URL}users${location.pathname}`

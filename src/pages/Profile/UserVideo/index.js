@@ -7,17 +7,19 @@ import styles from "./UserVideo.module.scss";
 const cx = classNames.bind(styles);
 
 function UserVideo({ data, selectedVideo, setSelectedVideo }) {
-  const videoRef = useRef();
+  const videoRef = useRef()
 
   return (
-    <div className={cx("wrapper")}>
+    <div
+      className={cx("wrapper")}
+      onMouseMove={() => setSelectedVideo(videoRef.current)}
+    >
       <div className={cx("video-container")}>
         <video
           className={cx("user-video")}
           ref={videoRef}
-          src={data.file_url}
+          src={data.file_url}y
           muted
-          onMouseEnter={() => setSelectedVideo(videoRef.current)}
         />
         <div className={cx("card-footer")}>
           <i className={cx("play-icon")}>

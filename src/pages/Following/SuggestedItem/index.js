@@ -6,13 +6,9 @@ import styles from "./SuggestedItem.module.scss";
 
 const cx = classNames.bind(styles);
 
-function SuggestedItem({ data }) {
+function SuggestedItem({ data, setSelectedVideo }) {
   const videoRef = useRef();
 
-  const handleResetVideo = () => {
-    videoRef.current.pause();
-    videoRef.current.currentTime = 0;
-  };
   return (
     <div className={cx("wrapper")}>
       <div className={cx("user-card")}>
@@ -21,8 +17,7 @@ function SuggestedItem({ data }) {
           className={cx("user-video")}
           src={data.popular_video.file_url}
           muted
-          onMouseEnter={() => videoRef.current.play()}
-          onMouseLeave={handleResetVideo}
+          onMouseEnter={() => setSelectedVideo(videoRef.current)}
         />
       </div>
       <div className={cx("info")}>

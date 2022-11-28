@@ -14,8 +14,19 @@ function Following() {
   const [followingList, setFollowingList] = useState([]);
   const [suggestedUser, setSuggestedUser] = useState();
   const [isFetching, setIsFetching] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState();
+  const [prevSelectedVideo, setPrevSelectedVideo] = useState();
 
   const auth = useAuth();
+
+  const handleResetVideo = () => {
+    if (!prevSelectedVideo) {
+      return;
+    }
+    prevSelectedVideo.pause();
+    prevSelectedVideo.currentTime = 0;
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const getFollowingList = async () => {
@@ -61,11 +72,24 @@ function Following() {
     getSuggestedUserList();
   }, [isFetching]);
 
+  useEffect(() => {
+    setPrevSelectedVideo(selectedVideo);
+    selectedVideo?.play();
+
+    handleResetVideo();
+  }, [selectedVideo]);
+
   return (
     <div className={cx("wrapper")}>
       {followingList.length < 1
         ? suggestedUser?.map((item) => {
-            return <SuggestedItem data={item} key={item.id} />;
+            return (
+              <SuggestedItem
+                data={item}
+                key={item.id}
+                setSelectedVideo={setSelectedVideo}
+              />
+            );
           })
         : followingList?.map((user) => {
             return user.videos.map((video) => {
