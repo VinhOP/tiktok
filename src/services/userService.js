@@ -13,3 +13,31 @@ export const getSuggested = async ({ page, per_page }) => {
     console.log(error);
   }
 };
+
+export const signin = async ({ email, password }) => {
+  try {
+    const user = await httpsRequest.post("auth/login", {
+      email,
+      password,
+    });
+    return user;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const followAndUnFollowUser = async ({ user, isFollowed = false }) => {
+  try {
+    await httpsRequest.post(
+      `users/${user.user_id || user.id}/${isFollowed ? "unfollow" : "follow"}`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer" + localStorage.getItem("token"),
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

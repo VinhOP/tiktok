@@ -26,8 +26,14 @@
 }
 
 .nickname {
+  display: inline-block;
   font-size: 32px;
   line-height: 38px;
+}
+
+.check-icon {
+  margin-left: 10px;
+  font-size: 20px;
 }
 
 .fullname {
@@ -37,7 +43,41 @@
 }
 
 .follow-btn {
-  min-width: 208px;
+  width: 208px;
+}
+
+.message-btn {
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
+  border-color: #fe2c55;
+  color: var(--primary);
+  width: 164px;
+
+  &:hover {
+    background-color: #fe2c550f;
+  }
+}
+
+.unfollow-btn {
+  width: 36px;
+  height: 36px;
+  background-color: var(--white);
+  color: var(--black);
+  border: 1px solid #1618231f;
+
+  &:hover {
+    background-color: #16182308;
+  }
+}
+
+.user-check-icon {
+  color: var(--black);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
   margin-top: 16px;
 }
 
@@ -51,7 +91,8 @@
   }
 
   span {
-    margin-left: 6px;
+    margin-left: 4px;
+    font-size: 16px;
     color: #161823bf;
   }
 }

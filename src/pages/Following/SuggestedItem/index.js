@@ -1,13 +1,28 @@
+import axios from "axios";
 import classNames from "classnames/bind";
 import { useRef } from "react";
 import Button from "../../../components/Button";
 import Image from "../../../components/Image";
+import { useAuth } from "../../../Contexts/AuthContext";
+import { useModal } from "../../../Contexts/ModalContext";
 import styles from "./SuggestedItem.module.scss";
+import * as userService from "../../../services/userService";
 
 const cx = classNames.bind(styles);
 
-function SuggestedItem({ data, setSelectedVideo }) {
+function SuggestedItem({ data, setSelectedVideo, rerender, setRerender }) {
   const videoRef = useRef();
+  const auth = useAuth();
+  const modal = useModal();
+
+  const handleFollow = async () => {
+    if (!auth.currentUser) {
+      modal.toggleModal();
+    }
+    userService.followAndUnFollowUser({ user: data });
+
+    setRerender(!rerender);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -26,7 +41,7 @@ function SuggestedItem({ data, setSelectedVideo }) {
           {`${data.first_name} ${data.last_name}`}
         </h4>
         <p className={cx("nickname")}> {data.nick_name} </p>
-        <Button center primary>
+        <Button center primary onClick={handleFollow}>
           Follow
         </Button>
       </div>

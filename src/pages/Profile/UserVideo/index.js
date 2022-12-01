@@ -6,8 +6,8 @@ import styles from "./UserVideo.module.scss";
 
 const cx = classNames.bind(styles);
 
-function UserVideo({ data, selectedVideo, setSelectedVideo }) {
-  const videoRef = useRef()
+function UserVideo({ data, setSelectedVideo }) {
+  const videoRef = useRef();
 
   return (
     <div
@@ -18,7 +18,7 @@ function UserVideo({ data, selectedVideo, setSelectedVideo }) {
         <video
           className={cx("user-video")}
           ref={videoRef}
-          src={data.file_url}y
+          src={data.file_url}
           muted
         />
         <div className={cx("card-footer")}>

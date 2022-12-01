@@ -7,6 +7,7 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
+import * as userService from "../services/userService";
 
 const AuthContext = createContext();
 
@@ -39,13 +40,7 @@ function AuthProvider({ children }) {
   const signin = async (email, password) => {
     try {
       setIsLoading(true);
-      const user = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}auth/login`,
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const user = await userService.signin({ email, password });
       localStorage.setItem("token", user.data.meta.token);
       setCurrentUser(user.data.data);
       setIsLoading(false);

@@ -9,4 +9,9 @@ export const get = async (path, options = {}) => {
   return respone.data;
 };
 
+export const post = async (path, body = {}, headers = {}) => {
+  const respone = await request.post(path, body, headers);
+  return respone;
+};
+
 export default request;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import {
   faCommentDots,
@@ -12,6 +13,7 @@ import Image from "../../../components/Image";
 import styles from "./HomeItem.module.scss";
 import { useAuth } from "../../../Contexts/AuthContext";
 import { useModal } from "../../../Contexts/ModalContext";
+import * as userService from "../../../services/userService";
 
 const cx = classNames.bind(styles);
 
@@ -27,19 +29,9 @@ function HomeItem({ data, followingPage = false }) {
 
   const handleLike = () => {};
 
-  const handleFollow = async () => {
+  const handleFollow = () => {
     if (auth.currentUser) {
-      await axios.post(
-        `${process.env.REACT_APP_BASE_URL}users/${
-          data.user_id || data.user.id
-        }/${isFollowed ? "unfollow" : "follow"}`,
-        {},
-        {
-          headers: {
-            Authorization: "Bearer" + localStorage.getItem("token"),
-          },
-        }
-      );
+      userService.followAndUnFollowUser({ user: data, isFollowed });
       setIsFollowed(!isFollowed);
     } else {
       modal.toggleModal();
@@ -49,15 +41,20 @@ function HomeItem({ data, followingPage = false }) {
   return (
     <div className={cx("wrapper")}>
       <Image
-        src={suggestedVideo.user?.avatar}
-        alt={suggestedVideo.user?.nickname}
+        src={suggestedVideo.user.avatar}
+        alt={suggestedVideo.user.nickname}
         className={cx("avatar")}
       />
       <div className={cx("content")}>
         <header className={cx("header")}>
           <div className={cx("info")}>
             <div className={cx("info-header")}>
-              <h4 className={cx("nickname")}>{suggestedVideo.user.nickname}</h4>
+              <Link
+                to={`/@${suggestedVideo.user.nickname}`}
+                className={cx("nickname")}
+              >
+                {suggestedVideo.user.nickname}
+              </Link>
               <p className={cx("full-name")}>
                 {`${suggestedVideo.user.first_name} ${suggestedVideo.user.last_name}`}
               </p>
