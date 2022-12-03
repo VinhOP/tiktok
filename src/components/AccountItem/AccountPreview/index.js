@@ -6,16 +6,42 @@ import { useAuth } from "../../../Contexts/AuthContext";
 import Button from "../../Button";
 import Image from "../../Image";
 import styles from "./AccountPreview.module.scss";
+import * as userSevice from "../../../services/userService";
+import { useEffect, useState } from "react";
+import { useModal } from "../../../Contexts/ModalContext";
+import * as userService from "../../../services/userService";
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
+  const [isFollowed, setIsFollowed] = useState(data.is_followed);
+  const modal = useModal();
+  const auth = useAuth();
+
+  useEffect(() => {
+    setIsFollowed(data.is_followed);
+  }, []);
+
+  const handleFollow = async () => {
+    if (!auth.currentUser) {
+      modal.toggleModal();
+    }
+    await userService.followAndUnFollowUser({ user: data });
+    setIsFollowed(!isFollowed);
+  };
+
   return (
     <div className={cx("wrapper")}>
       <header className={cx("header")}>
         <Image className={cx("avatar")} src={data.avatar} />
-        <Button className={cx("follow-btn")} small primary center>
-          {data.is_followed ? "Đang Follow" : "Follow"}
+        <Button
+          className={cx("follow-btn")}
+          small
+          primary
+          center
+          onClick={handleFollow}
+        >
+          {isFollowed ? "Unfollow" : "Follow"}
         </Button>
       </header>
       <div className={cx("info")}>

@@ -21,17 +21,14 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     async function fetchAPI() {
-      const user = await axios.get(`${process.env.REACT_APP_BASE_URL}auth/me`, {
-        headers: {
-          Authorization: "Bearer" + localStorage.getItem("token"),
-        },
-      });
-      setCurrentUser(user.data.data);
+      const user = await userService.getCurrentUser();
+      setCurrentUser(user.data);
     }
     fetchAPI();
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
+    setCurrentUser(localStorage.getItem("token"));
     localStorage.getItem("token") != null
       ? setLoggedIn(true)
       : setLoggedIn(false);
@@ -42,7 +39,8 @@ function AuthProvider({ children }) {
       setIsLoading(true);
       const user = await userService.signin({ email, password });
       localStorage.setItem("token", user.data.meta.token);
-      setCurrentUser(user.data.data);
+      //localStorage.setItem("currentUser", user.data.data);
+      //setCurrentUser(localStorage.getItem("token"));
       setIsLoading(false);
       setTimeout(() => {
         setLoggedIn(true);
@@ -50,6 +48,14 @@ function AuthProvider({ children }) {
     } catch (err) {
       setIsLoading(false);
       setError("sai email hoặc mật khẩu");
+    }
+  };
+
+  const signup = async (email, password) => {
+    try {
+      const user = await userService.signup({ email, password });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -66,6 +72,7 @@ function AuthProvider({ children }) {
     error,
     setError,
     signin,
+    signup,
     signout,
     loggedIn,
   };

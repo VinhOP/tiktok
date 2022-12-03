@@ -14,6 +14,37 @@ export const getSuggested = async ({ page, per_page }) => {
   }
 };
 
+export const getCurrentUser = async () => {
+  try {
+    const res = await httpsRequest.get("auth/me", {
+      headers: {
+        Authorization: "Bearer" + localStorage.getItem("token"),
+      },
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const signup = async ({ email, password }) => {
+  try {
+    await httpsRequest.post(
+      "auth/register",
+      {
+        type: "email",
+        email,
+        password,
+      },
+      {
+        headers: "Content-Type: application/json",
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const signin = async ({ email, password }) => {
   try {
     const user = await httpsRequest.post("auth/login", {

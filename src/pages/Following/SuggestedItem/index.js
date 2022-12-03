@@ -19,7 +19,7 @@ function SuggestedItem({ data, setSelectedVideo, rerender, setRerender }) {
     if (!auth.currentUser) {
       modal.toggleModal();
     }
-    userService.followAndUnFollowUser({ user: data });
+    await userService.followAndUnFollowUser({ user: data });
 
     setRerender(!rerender);
   };

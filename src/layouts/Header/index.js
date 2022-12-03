@@ -30,15 +30,21 @@ import { useModal } from "../../Contexts/ModalContext";
 import Modal from "../../components/Modal";
 import { useAuth } from "../../Contexts/AuthContext";
 import { useEffect, useState } from "react";
-
+import * as userService from "../../services/userService";
 const cx = classNames.bind(styles);
 
 function Header() {
   const modal = useModal();
   const auth = useAuth();
 
-  useEffect(() => {}, []);
+  // const [currentUser, setCurrentUser] = useState();
 
+  // useEffect(() => {
+  //   const user = userService.getCurrentUser();
+  //   setCurrentUser(user);
+  // }, []);
+
+  console.log(auth.currentUser);
   const MENU_ITEMS = [
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,

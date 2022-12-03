@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import styles from "./Following.module.scss";
 import * as suggestedService from "../../services/userService";
 import * as followingListService from "../../services/followingListService";
@@ -16,7 +16,9 @@ function Following() {
   const [suggestedUser, setSuggestedUser] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState();
   const [prevSelectedVideo, setPrevSelectedVideo] = useState();
-  const [rerender, setRerender] = useState(false);
+  const [rerender, setRerender] = useState(true);
+
+  //console.log(followingList);
 
   const auth = useAuth();
   const handleResetVideo = () => {
@@ -35,7 +37,7 @@ function Following() {
         page: 1,
       });
 
-      if (result.length < 1 || !auth.currentUser) {
+      if (!result || result.length < 1 || !auth.currentUser) {
         const getSuggestedUserList = async () => {
           const result = await suggestedService.getSuggested({
             page: 1,

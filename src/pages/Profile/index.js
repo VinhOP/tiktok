@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
   faEllipsis,
+  faLink,
   faShare,
   faUserCheck,
 } from "@fortawesome/free-solid-svg-icons";
@@ -154,11 +155,20 @@ function Profile() {
               </h4>
             </div>
             <div className={cx("description")}>
-              <p> Chua co tieu su </p>
+              <p> {userProfile.bio || "chưa có tiểu sử"}</p>
             </div>
-            <div className={cx("links")}>
-              <a href="#"> links </a>
-            </div>
+            {userProfile.website_url && (
+              <div className={cx("links")}>
+                <FontAwesomeIcon className={cx("link-icon")} icon={faLink} />
+                <a
+                  href={userProfile.website_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {userProfile.website_url}
+                </a>
+              </div>
+            )}
           </div>
           <div className={cx("options")}>
             <i>
