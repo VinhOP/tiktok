@@ -18,8 +18,6 @@ function Following() {
   const [prevSelectedVideo, setPrevSelectedVideo] = useState();
   const [rerender, setRerender] = useState(true);
 
-  //console.log(followingList);
-
   const auth = useAuth();
   const handleResetVideo = () => {
     if (!prevSelectedVideo) {

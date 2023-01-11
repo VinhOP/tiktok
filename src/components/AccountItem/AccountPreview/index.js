@@ -7,28 +7,32 @@ import Button from "../../Button";
 import Image from "../../Image";
 import styles from "./AccountPreview.module.scss";
 import * as userSevice from "../../../services/userService";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useModal } from "../../../Contexts/ModalContext";
 import * as userService from "../../../services/userService";
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
-  const [isFollowed, setIsFollowed] = useState(data.is_followed);
+  const [isFollowed, setIsFollowed] = useState();
+
   const modal = useModal();
   const auth = useAuth();
-
-  useEffect(() => {
-    setIsFollowed(data.is_followed);
-  }, []);
 
   const handleFollow = async () => {
     if (!auth.currentUser) {
       modal.toggleModal();
     }
-    await userService.followAndUnFollowUser({ user: data });
+    await userService.followAndUnFollowUser({
+      user: data,
+      isFollowed,
+    });
     setIsFollowed(!isFollowed);
   };
+
+  useEffect(() => {
+    setIsFollowed(data.is_followed);
+  }, [data]);
 
   return (
     <div className={cx("wrapper")}>

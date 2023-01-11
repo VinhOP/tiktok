@@ -9,26 +9,37 @@ import Tippy from "@tippyjs/react/headless";
 import { Wrapper as PopperWrapper } from "../Popper";
 import { Fragment } from "react";
 import AccountPreview from "./AccountPreview";
+import * as userService from "../../services/userService";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
-function AccountItem({ className, data, isSugessted = false }) {
+function AccountItem({ className, data, isSugesstedSection = false }) {
+  const [previewData, setPreviewData] = useState(data);
+
   const renderPreview = (attrs) => (
     <div className={cx("preview")} tabIndex={-1} {...attrs}>
       <PopperWrapper>
-        <AccountPreview data={data} />
+        <AccountPreview data={previewData} />
       </PopperWrapper>
     </div>
   );
+
+  const handleFetchData = async () => {
+    const user = await userService.getAnUser({ nickname: data.nickname });
+    setPreviewData(user);
+  };
 
   return (
     <div>
       <Tippy
         appendTo={document.body}
         interactive
-        delay={[600, 0]}
+        delay={[300, 0]}
+        onShow={handleFetchData}
         placement={"bottom"}
         offset={[-20, 0]}
-        render={isSugessted ? () => renderPreview() : () => Fragment}
+        render={isSugesstedSection ? () => renderPreview() : () => Fragment}
       >
         <Button to={`/@${data.nickname}`} className={cx("wrapper", className)}>
           <Image className={cx("avatar")} src={data.avatar} alt="avatar" />
@@ -49,6 +60,8 @@ function AccountItem({ className, data, isSugessted = false }) {
 
 AccountItem.propTypes = {
   data: PropTypes.object.isRequired,
+  isSugesstedSection: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default AccountItem;

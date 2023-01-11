@@ -14,6 +14,19 @@ export const getSuggested = async ({ page, per_page }) => {
   }
 };
 
+export const getAnUser = async ({ nickname }) => {
+  try {
+    const res = await httpsRequest.get(`users/@${nickname}`, {
+      headers: {
+        Authorization: "Bearer" + localStorage.getItem("token"),
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getCurrentUser = async () => {
   try {
     const res = await httpsRequest.get("auth/me", {
@@ -59,7 +72,7 @@ export const signin = async ({ email, password }) => {
 
 export const followAndUnFollowUser = async ({ user, isFollowed = false }) => {
   try {
-    await httpsRequest.post(
+    const res = await httpsRequest.post(
       `users/${user.user_id || user.id}/${isFollowed ? "unfollow" : "follow"}`,
       {},
       {
@@ -68,6 +81,7 @@ export const followAndUnFollowUser = async ({ user, isFollowed = false }) => {
         },
       }
     );
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }

@@ -30,7 +30,7 @@ function UserRecommend() {
           return (
             <AccountItem
               className={cx("menu-item")}
-              isSugessted
+              isSugesstedSection
               data={user}
               key={user.id}
             />

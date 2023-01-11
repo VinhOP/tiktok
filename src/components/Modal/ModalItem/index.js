@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from "../Modal.module.scss";
 import Login from "./Login";
 import Register from "./Register";
+import PropTypes from "prop-types";
 
 const cx = classNames.bind(styles);
 function ModalItem({ data, onClick, loginForm = false, registerForm = false }) {
@@ -20,5 +21,12 @@ function ModalItem({ data, onClick, loginForm = false, registerForm = false }) {
     </>
   );
 }
+
+ModalItem.propTypes = {
+  data: PropTypes.object,
+  onClick: PropTypes.func,
+  loginForm: PropTypes.bool,
+  registerForm: PropTypes.bool,
+};
 
 export default ModalItem;

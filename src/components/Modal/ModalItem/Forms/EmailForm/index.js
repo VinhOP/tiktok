@@ -1,11 +1,11 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import styles from "./EmailForm.module.scss";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
 import { useAuth } from "../../../../../Contexts/AuthContext";
 import { useEmail } from "../../../../../Contexts/EmailContext";
-import styles from "./EmailForm.module.scss";
 
 const cx = classNames.bind(styles);
 

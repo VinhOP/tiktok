@@ -14,6 +14,7 @@ import Discover from "./Discover";
 import { useAuth } from "../../Contexts/AuthContext";
 import Button from "../../components/Button";
 import { useModal } from "../../Contexts/ModalContext";
+import PropTypes from "prop-types";
 
 function Sidebar({ profileLayout = false }) {
   const cx = classNames.bind(styles);
@@ -70,5 +71,9 @@ function Sidebar({ profileLayout = false }) {
     </div>
   );
 }
+
+Sidebar.propTypes = {
+  profileLayout: PropTypes.bool,
+};
 
 export default Sidebar;

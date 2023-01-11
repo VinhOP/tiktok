@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import {
-  faBackward,
   faChevronLeft,
   faClose,
   faQrcode,

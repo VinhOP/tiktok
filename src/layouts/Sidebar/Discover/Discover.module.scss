@@ -5,3 +5,32 @@
 .title {
   padding-bottom: 16px;
 }
+
+.list-container {
+  display: flex;
+
+  .list-item {
+    list-style-type: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-color: var(--white);
+    border: 1px solid #16182333;
+    padding: 4px 10px;
+    margin: 0 8px 10px 0;
+    border-radius: 14px;
+    font-size: 1.3rem;
+    width: fit-content;
+    max-width: 300px;
+    color: #16182380;
+  }
+
+  .icon {
+    margin-right: 8px;
+    color: var(--black);
+  }
+
+  .tag {
+    display: flex;
+  }
+}

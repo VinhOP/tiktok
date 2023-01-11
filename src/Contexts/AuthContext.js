@@ -1,12 +1,5 @@
-import axios from "axios";
-import { auth } from "../firebase";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import PropTypes from "prop-types";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as userService from "../services/userService";
 
 const AuthContext = createContext();
@@ -20,6 +13,9 @@ function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState();
 
   useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
     async function fetchAPI() {
       const user = await userService.getCurrentUser();
       setCurrentUser(user.data);
@@ -39,8 +35,7 @@ function AuthProvider({ children }) {
       setIsLoading(true);
       const user = await userService.signin({ email, password });
       localStorage.setItem("token", user.data.meta.token);
-      //localStorage.setItem("currentUser", user.data.data);
-      //setCurrentUser(localStorage.getItem("token"));
+      setCurrentUser(localStorage.getItem("token"));
       setIsLoading(false);
       setTimeout(() => {
         setLoggedIn(true);
@@ -83,5 +78,9 @@ function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+AuthContext.PropTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AuthProvider;

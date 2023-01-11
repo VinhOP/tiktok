@@ -1,7 +1,8 @@
-import { forwardRef, useRef } from "react";
+import { useRef } from "react";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import PropTypes from "prop-types";
 import styles from "./UserVideo.module.scss";
 
 const cx = classNames.bind(styles);
@@ -32,4 +33,10 @@ function UserVideo({ data, setSelectedVideo }) {
     </div>
   );
 }
+
+UserVideo.propTypes = {
+  data: PropTypes.object,
+  setSelectedVideo: PropTypes.string,
+};
+
 export default UserVideo;
