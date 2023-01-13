@@ -13,6 +13,15 @@ function EmailForm() {
   const email = useEmail();
   const auth = useAuth();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (e.nativeEvent.submitter.name === "login-btn") {
+      auth.signin(email.email, email.password);
+    } else {
+      auth.signup(email.email, email.password);
+    }
+  };
+
   useLayoutEffect(() => {
     return auth.setError("");
   }, []);
@@ -33,7 +42,11 @@ function EmailForm() {
           Đăng nhập bằng số điện thoại
         </a>
       </div>
-      <form className={cx("email-form")}>
+      <form
+        className={cx("email-form")}
+        id="submit-form"
+        onSubmit={handleSubmit}
+      >
         <div className={cx("input-field")}>
           <input
             value={email.email}

@@ -32,8 +32,9 @@ function Register() {
             primary: email.email && email.password,
             disabled: !email.email || !email.password,
           })}
-          onClick={() => auth.signup(email.email, email.password)}
-          type={"submit"}
+          form="submit-form"
+          name="register-btn"
+          type="submit"
         >
           <span>
             {auth.isLoading ? (

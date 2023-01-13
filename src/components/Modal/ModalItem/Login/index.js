@@ -48,8 +48,9 @@ function Login() {
               auth.isLoading ||
               auth.currentUser,
           })}
+          form="submit-form"
           type="submit"
-          onClick={handleSignIn}
+          name="login-btn"
         >
           <span>
             {auth.isLoading ? (

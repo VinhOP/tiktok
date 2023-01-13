@@ -15,6 +15,7 @@ import { useAuth } from "../../Contexts/AuthContext";
 import Button from "../../components/Button";
 import { useModal } from "../../Contexts/ModalContext";
 import PropTypes from "prop-types";
+import Footer from "./Footer/Footer";
 
 function Sidebar({ profileLayout = false }) {
   const cx = classNames.bind(styles);
@@ -67,6 +68,7 @@ function Sidebar({ profileLayout = false }) {
         <UserRecommend />
         {auth.currentUser && <Following />}
         <Discover />
+        <Footer />
       </div>
     </div>
   );

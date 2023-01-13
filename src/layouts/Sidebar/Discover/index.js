@@ -31,29 +31,30 @@ function Discover() {
           </li>
           <li className={cx("list-item")}>
             <FontAwesomeIcon className={cx("icon")} icon={faMusic} />
-            music
+            Về Nghe Mẹ Ru - NSND Bach Tuyet & Hứa Kim Tuyền & 14 Casper & Hoàng
+            Dũng
           </li>
           <li className={cx("list-item")}>
             <FontAwesomeIcon className={cx("icon")} icon={faMusic} />
-            music
+            Thiên Thần Tình Yêu - RICKY STAR
           </li>
           <li className={cx("tag")}>
             <div className={cx("list-item")}>
               <FontAwesomeIcon className={cx("icon")} icon={faHashtag} />
-              suthatla
+              7749hieuung
             </div>
             <div className={cx("list-item")}>
               <FontAwesomeIcon className={cx("icon")} icon={faHashtag} />
-              mackedoi
+              genzlife
             </div>
           </li>
           <li className={cx("list-item")}>
             <FontAwesomeIcon className={cx("icon")} icon={faMusic} />
-            music
+            Tình Đã Đầy Một Tim - Huyền Tâm Môn
           </li>
           <li className={cx("list-item")}>
             <FontAwesomeIcon className={cx("icon")} icon={faMusic} />
-            music
+            Thằng Hầu (Thái Hoàng Remix) [Short Version] - Dunghoangpham
           </li>
         </ul>
       </div>

@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 16px 0 0 8px;
+  font-size: 1.2rem;
+  color: #161823;
+}
+
+.link-container {
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.link {
+  margin-top: 5px;
+  margin-right: 6px;
+  line-height: 1.7rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

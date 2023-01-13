@@ -48,7 +48,10 @@ function AuthProvider({ children }) {
 
   const signup = async (email, password) => {
     try {
+      setIsLoading(true);
       const user = await userService.signup({ email, password });
+
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
     }

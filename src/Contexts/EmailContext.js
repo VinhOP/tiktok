@@ -8,11 +8,14 @@ function EmailProvider({ children }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState("");
 
   const value = {
     email,
     password,
     showPassword,
+    form,
+    setForm,
     setEmail,
     setPassword,
     setShowPassword,
