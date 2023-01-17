@@ -7,6 +7,7 @@ import { useEmail } from "../../../../Contexts/EmailContext";
 import { useAuth } from "../../../../Contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import Spinner from "../../../Spinner";
 
 const cx = classNames.bind(styles);
 
@@ -36,16 +37,7 @@ function Register() {
           name="register-btn"
           type="submit"
         >
-          <span>
-            {auth.isLoading ? (
-              <FontAwesomeIcon
-                className={cx("spinner-icon")}
-                icon={faSpinner}
-              />
-            ) : (
-              "Đăng ký"
-            )}
-          </span>
+          <span>{auth.isLoading ? <Spinner /> : "Đăng ký"}</span>
         </button>
       </div>
     </div>

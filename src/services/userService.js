@@ -42,7 +42,7 @@ export const getCurrentUser = async () => {
 
 export const signup = async ({ email, password }) => {
   try {
-    await httpsRequest.post(
+    const user = await httpsRequest.post(
       "auth/register",
       {
         type: "email",
@@ -53,6 +53,7 @@ export const signup = async ({ email, password }) => {
         headers: "Content-Type: application/json",
       }
     );
+    return user;
   } catch (err) {
     console.log(err);
   }

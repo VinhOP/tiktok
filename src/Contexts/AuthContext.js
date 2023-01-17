@@ -11,6 +11,7 @@ function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [loggedIn, setLoggedIn] = useState();
+  const [signupSuccess, setSignupSuccess] = useState(false);
 
   useEffect(() => {
     if (!loggedIn) {
@@ -50,8 +51,14 @@ function AuthProvider({ children }) {
     try {
       setIsLoading(true);
       const user = await userService.signup({ email, password });
-
+      setSignupSuccess(true);
+      localStorage.setItem("token", user.data.meta.token);
+      setCurrentUser(localStorage.getItem("token"));
+      setTimeout(() => {
+        setLoggedIn(true);
+      }, 2000);
       setIsLoading(false);
+      setSignupSuccess(false);
     } catch (err) {
       console.log(err);
     }
@@ -73,6 +80,7 @@ function AuthProvider({ children }) {
     signup,
     signout,
     loggedIn,
+    signupSuccess,
   };
 
   return (

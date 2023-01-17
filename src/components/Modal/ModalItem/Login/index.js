@@ -6,6 +6,7 @@ import { useLayoutEffect } from "react";
 import { useEffect } from "react";
 import { useAuth } from "../../../../Contexts/AuthContext";
 import { useEmail } from "../../../../Contexts/EmailContext";
+import Spinner from "../../../Spinner";
 import EmailForm from "../Forms/EmailForm";
 import styles from "../ModalItem.module.scss";
 
@@ -52,16 +53,7 @@ function Login() {
           type="submit"
           name="login-btn"
         >
-          <span>
-            {auth.isLoading ? (
-              <FontAwesomeIcon
-                className={cx("spinner-icon")}
-                icon={faSpinner}
-              />
-            ) : (
-              "Đăng nhập"
-            )}
-          </span>
+          <span>{auth.isLoading ? <Spinner /> : "Đăng nhập"}</span>
         </button>
       </div>
     </div>

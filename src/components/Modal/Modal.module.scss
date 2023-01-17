@@ -39,11 +39,13 @@
 .header-title {
   font-size: 3.2rem;
 }
+
 .container {
   display: flex;
+  height: 100%;
+  max-height: 80%;
   justify-content: center;
   width: 483px;
-  height: 80%;
   padding-top: 48px;
   background-color: var(--white);
   position: relative;
@@ -85,6 +87,18 @@
     width: 100%;
     overflow: auto;
     overscroll-behavior: none;
+  }
+
+  .notice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 48px;
+    
+    .spinner {
+      margin-top: 20px;
+    }
   }
 
   .modal-items {

@@ -19,6 +19,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { useModal } from "../../Contexts/ModalContext";
 import ModalItem from "./ModalItem";
 import { useAuth } from "../../Contexts/AuthContext";
+import Spinner from "../Spinner";
 
 const cx = classNames.bind(styles);
 function Modal() {
@@ -144,36 +145,44 @@ function Modal() {
         <h4 className={cx("description")}> Đăng nhập thành công </h4>
       </span>
       <div className={cx("container")}>
-        <div className={cx("content")}>
-          <div className={cx("modal-items")}>
-            {history.length > 1 && (
-              <button
-                className={cx("back-btn")}
-                onClick={handleGoToPreviousMenu}
-              >
+        {auth.signupSuccess ? (
+          <div className={cx("notice")}>
+            <h2>Đăng ký thành công</h2>
+            <h4>Đang chuyển hướng</h4>
+            <Spinner className={cx("spinner")} />
+          </div>
+        ) : (
+          <div className={cx("content")}>
+            <div className={cx("modal-items")}>
+              {history.length > 1 && (
+                <button
+                  className={cx("back-btn")}
+                  onClick={handleGoToPreviousMenu}
+                >
+                  <span>
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                  </span>
+                </button>
+              )}
+              <button className={cx("close-btn")} onClick={context.toggleModal}>
                 <span>
-                  <FontAwesomeIcon icon={faChevronLeft} />
+                  <FontAwesomeIcon icon={faClose} />
                 </span>
               </button>
-            )}
-            <button className={cx("close-btn")} onClick={context.toggleModal}>
-              <span>
-                <FontAwesomeIcon icon={faClose} />
-              </span>
-            </button>
-            <h1 className={cx("header-title")}>{current.headerTitle}</h1>
-            {renderItem()}
+              <h1 className={cx("header-title")}>{current.headerTitle}</h1>
+              {renderItem()}
+            </div>
+            <footer className={cx("footer")}>
+              Bạn không có tài khoản?
+              <button
+                className={cx("toggle-modal-btn")}
+                onClick={handleToggleModal}
+              >
+                {modal === "login" ? "Đăng ký" : "Đăng nhập"}
+              </button>
+            </footer>
           </div>
-          <footer className={cx("footer")}>
-            Bạn không có tài khoản?
-            <button
-              className={cx("toggle-modal-btn")}
-              onClick={handleToggleModal}
-            >
-              {modal === "login" ? "Đăng ký" : "Đăng nhập"}
-            </button>
-          </footer>
-        </div>
+        )}
       </div>
     </div>
   );
